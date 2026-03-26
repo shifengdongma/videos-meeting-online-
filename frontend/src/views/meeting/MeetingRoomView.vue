@@ -7,8 +7,12 @@
         <p>统一管理本地音视频、桌面共享、远端参会流与在线表决。</p>
       </div>
       <div class="room-actions">
-        <el-button type="primary" @click="openCamera">打开摄像头/麦克风</el-button>
-        <el-button @click="shareScreen">桌面共享</el-button>
+        <el-button type="primary" @click="toggleCamera">
+          {{ localStream ? '关闭摄像头/麦克风' : '打开摄像头/麦克风' }}
+        </el-button>
+        <el-button @click="toggleScreenShare">
+          {{ screenStream ? '停止桌面共享' : '桌面共享' }}
+        </el-button>
         <el-button v-if="canStartVote" @click="showVoteDialog = true">发起表决</el-button>
       </div>
     </div>
