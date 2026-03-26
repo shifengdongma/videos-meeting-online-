@@ -125,23 +125,14 @@ const setVideoStream = (el: HTMLVideoElement | null, stream: MediaStream | null)
   if (el) el.srcObject = stream
 }
 
-const syncStreamToPeers = (stream: MediaStream, kind: 'camera' | 'screen') => {
+const addStreamToPeers = (stream: MediaStream) => {
   peerConnections.forEach((pc) => {
-    const senders = pc.getSenders().filter((sender) => sender.track?.kind === 'video' || sender.track?.kind === 'audio')
-    const streamTracks = stream.getTracks()
-
-    streamTracks.forEach((track) => {
-      const exists = senders.some((sender) => sender.track?.id === track.id)
-      if (!exists) {
+    const senderTrackIds = new Set(pc.getSenders().map((sender) => sender.track?.id).filter(Boolean))
+    stream.getTracks().forEach((track) => {
+      if (!senderTrackIds.has(track.id)) {
         pc.addTrack(track, stream)
       }
     })
-
-    if (kind === 'screen') {
-      senders
-        .filter((sender) => sender.track?.kind === 'video' && !streamTracks.some((track) => track.id === sender.track?.id))
-        .forEach((sender) => pc.removeTrack(sender))
-    }
   })
 }
 
