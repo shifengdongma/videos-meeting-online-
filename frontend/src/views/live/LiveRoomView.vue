@@ -1,5 +1,5 @@
 <template>
-  <div class="live-room-page">
+  <div class="live-room-page app-page">
     <div class="live-head">
       <div>
         <div class="live-eyebrow">Live console</div>
