@@ -13,7 +13,7 @@
       <SummaryCard label="普通用户" :value="userCount" description="参与会议与观看直播的账号" />
     </div>
 
-    <el-card class="table-card" shadow="never">
+    <el-card class="table-card app-table-card" shadow="never">
       <el-table :data="users" v-loading="loading">
         <el-table-column prop="id" label="ID" width="80" />
         <el-table-column prop="username" label="用户名" min-width="220" />
