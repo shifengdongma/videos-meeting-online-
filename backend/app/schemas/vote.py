@@ -15,6 +15,13 @@ class VoteSubmit(BaseModel):
     option_id: int
 
 
+class VoteResultOptionResponse(BaseModel):
+    id: int
+    content: str
+    count: int
+    ratio: float
+
+
 class VoteOptionResponse(BaseModel):
     model_config = ConfigDict(from_attributes=True)
 
@@ -29,3 +36,5 @@ class VoteResponse(BaseModel):
     meeting_id: int
     topic: str
     options: list[VoteOptionResponse]
+    submitted: bool = False
+    results: list[VoteResultOptionResponse] = []
