@@ -115,14 +115,15 @@ a {
 
 .el-card {
   border-radius: var(--app-radius-lg);
-  border: 1px solid var(--app-border-soft);
-  background: var(--app-surface-strong);
+  border: 1px solid rgba(46, 58, 89, 0.12);
+  background: linear-gradient(180deg, rgba(255, 255, 255, 0.88) 0%, rgba(255, 255, 255, 0.72) 100%);
   box-shadow: var(--app-shadow-soft);
+  backdrop-filter: blur(var(--blur-glass));
 }
 
 .el-card__header {
   padding: 22px 24px;
-  border-bottom: 1px solid rgba(226, 232, 240, 0.85);
+  border-bottom: 1px solid rgba(46, 58, 89, 0.08);
 }
 
 .el-card__body {
@@ -145,26 +146,31 @@ a {
   transform: translateY(-1px);
 }
 
+.el-button:active {
+  transform: translateY(0);
+}
+
 .el-button:focus-visible {
   outline: none;
   box-shadow:
-    0 0 0 1px rgba(59, 130, 246, 0.44) inset,
-    0 0 0 4px rgba(59, 130, 246, 0.12);
+    0 0 0 1px rgba(46, 58, 89, 0.45) inset,
+    0 0 0 4px rgba(46, 58, 89, 0.12);
 }
 
 .el-button--primary {
   border-color: transparent;
   background: linear-gradient(135deg, var(--color-primary) 0%, var(--color-primary-hover) 100%);
-  box-shadow: 0 16px 30px rgba(37, 99, 235, 0.22);
+  box-shadow: 0 16px 30px rgba(46, 58, 89, 0.24);
 }
 
 .el-button--primary:hover {
-  box-shadow: 0 20px 36px rgba(37, 99, 235, 0.28);
+  box-shadow: 0 20px 36px rgba(46, 58, 89, 0.3);
 }
 
 .el-button--default {
-  border-color: rgba(148, 163, 184, 0.24);
-  background: rgba(255, 255, 255, 0.84);
+  border-color: rgba(46, 58, 89, 0.12);
+  background: rgba(255, 255, 255, 0.82);
+  color: var(--color-text-secondary);
 }
 
 .el-button--large {
@@ -181,8 +187,11 @@ a {
 .el-select__wrapper,
 .el-date-editor.el-input__wrapper {
   border-radius: var(--app-radius-sm);
-  background: rgba(255, 255, 255, 0.88);
-  box-shadow: 0 0 0 1px rgba(148, 163, 184, 0.2) inset;
+  background: linear-gradient(180deg, rgba(244, 246, 248, 0.96) 0%, rgba(255, 255, 255, 0.86) 100%);
+  box-shadow:
+    inset 0 1px 0 rgba(255, 255, 255, 0.9),
+    inset 0 0 0 1px rgba(46, 58, 89, 0.1),
+    inset 0 10px 20px rgba(46, 58, 89, 0.03);
   transition:
     box-shadow var(--motion-base) ease,
     border-color var(--motion-base) ease,
@@ -192,22 +201,27 @@ a {
 .el-input__wrapper:hover,
 .el-select__wrapper:hover,
 .el-textarea__inner:hover {
-  box-shadow: 0 0 0 1px rgba(148, 163, 184, 0.28) inset;
+  box-shadow:
+    inset 0 1px 0 rgba(255, 255, 255, 0.9),
+    inset 0 0 0 1px rgba(46, 58, 89, 0.18),
+    inset 0 10px 20px rgba(46, 58, 89, 0.03);
 }
 
 .el-input__wrapper.is-focus,
 .el-select__wrapper.is-focused,
 .el-textarea__inner:focus {
   box-shadow:
-    0 0 0 1px rgba(59, 130, 246, 0.54) inset,
-    0 0 0 4px rgba(59, 130, 246, 0.1),
-    0 16px 30px rgba(59, 130, 246, 0.08);
+    inset 0 1px 0 rgba(255, 255, 255, 0.92),
+    inset 0 0 0 1px rgba(46, 58, 89, 0.46),
+    0 0 0 4px rgba(46, 58, 89, 0.1),
+    0 18px 32px rgba(46, 58, 89, 0.08);
 }
 
 .el-dialog {
   border-radius: var(--app-radius-lg);
-  background: rgba(255, 255, 255, 0.96);
-  box-shadow: 0 30px 90px rgba(15, 23, 42, 0.18);
+  background: rgba(255, 255, 255, 0.94);
+  box-shadow: 0 30px 90px rgba(26, 31, 59, 0.18);
+  backdrop-filter: blur(20px);
 }
 
 .el-dialog__header {
@@ -230,9 +244,9 @@ a {
 }
 
 .el-table {
-  --el-table-header-bg-color: rgba(248, 250, 252, 0.84);
-  --el-table-row-hover-bg-color: rgba(248, 250, 252, 0.92);
-  --el-table-border-color: rgba(226, 232, 240, 0.64);
+  --el-table-header-bg-color: rgba(46, 58, 89, 0.04);
+  --el-table-row-hover-bg-color: rgba(46, 58, 89, 0.045);
+  --el-table-border-color: rgba(46, 58, 89, 0.08);
   border-radius: 24px;
   overflow: hidden;
   background: transparent;
@@ -248,13 +262,13 @@ a {
   font-size: 11px;
   letter-spacing: 0.1em;
   text-transform: uppercase;
-  background: rgba(248, 250, 252, 0.7);
+  background: rgba(46, 58, 89, 0.035);
 }
 
 .el-table td.el-table__cell,
 .el-table th.el-table__cell {
   padding-block: 18px;
-  border-bottom: 1px solid rgba(226, 232, 240, 0.72);
+  border-bottom: 1px solid rgba(46, 58, 89, 0.08);
 }
 
 .el-table td.el-table__cell {
