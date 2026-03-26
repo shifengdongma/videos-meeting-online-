@@ -71,11 +71,12 @@ const emit = defineEmits<{
 
 <style scoped>
 .vote-panel {
-  border-radius: 28px;
+  border-radius: 30px;
   padding: 24px;
-  background: linear-gradient(180deg, rgba(248, 250, 252, 0.92) 0%, rgba(255, 255, 255, 0.96) 100%);
-  border: 1px solid rgba(148, 163, 184, 0.14);
-  box-shadow: 0 18px 40px rgba(15, 23, 42, 0.08);
+  background: linear-gradient(180deg, rgba(255, 255, 255, 0.76) 0%, rgba(247, 249, 252, 0.9) 100%);
+  border: 1px solid rgba(46, 58, 89, 0.12);
+  box-shadow: 0 22px 46px rgba(26, 31, 59, 0.1);
+  backdrop-filter: blur(18px);
 }
 .panel-head {
   display: flex;
@@ -84,7 +85,7 @@ const emit = defineEmits<{
   gap: 12px;
 }
 .panel-eyebrow {
-  color: var(--color-primary-hover);
+  color: var(--color-primary);
   font-size: 12px;
   font-weight: 700;
   letter-spacing: 0.08em;
@@ -98,23 +99,23 @@ const emit = defineEmits<{
 .panel-status {
   padding: 8px 12px;
   border-radius: 999px;
-  background: rgba(148, 163, 184, 0.14);
+  background: rgba(30, 158, 111, 0.08);
   color: var(--color-text-secondary);
   font-size: 12px;
   font-weight: 700;
 }
 .panel-status.active {
-  background: rgba(59, 130, 246, 0.1);
-  color: var(--color-primary-hover);
+  background: rgba(251, 192, 45, 0.18);
+  color: #a26c00;
 }
 .vote-body {
   margin-top: 20px;
 }
 .topic-card {
   padding: 18px;
-  border-radius: 18px;
-  background: rgba(248, 250, 252, 0.9);
-  border: 1px solid rgba(148, 163, 184, 0.14);
+  border-radius: 20px;
+  background: rgba(255, 255, 255, 0.7);
+  border: 1px solid rgba(46, 58, 89, 0.1);
 }
 .topic-label {
   color: var(--color-text-muted);
@@ -133,13 +134,13 @@ const emit = defineEmits<{
 }
 .vote-option {
   justify-content: flex-start;
-  min-height: 46px;
+  min-height: 48px;
   border-radius: 16px;
   font-weight: 600;
 }
 .submitted-tip {
   margin-top: 14px;
-  color: #059669;
+  color: #157554;
   font-size: 13px;
   font-weight: 600;
 }
@@ -149,7 +150,7 @@ const emit = defineEmits<{
 .results-card {
   margin-top: 24px;
   padding-top: 20px;
-  border-top: 1px solid rgba(148, 163, 184, 0.18);
+  border-top: 1px solid rgba(46, 58, 89, 0.1);
 }
 .results-title {
   margin-bottom: 14px;
@@ -165,13 +166,14 @@ const emit = defineEmits<{
   justify-content: space-between;
   gap: 12px;
   margin-bottom: 10px;
-  color: #334155;
+  color: var(--color-text-secondary);
   font-size: 14px;
 }
 :deep(.el-progress-bar__outer) {
-  background: rgba(148, 163, 184, 0.18);
+  background: rgba(46, 58, 89, 0.12);
 }
 :deep(.el-progress-bar__inner) {
   transition: width 0.5s ease;
+  background: linear-gradient(90deg, var(--color-primary) 0%, var(--color-success) 100%);
 }
 </style>
