@@ -53,15 +53,15 @@ const handleSubmit = async () => {
 
 <style scoped>
 .auth-card {
-  width: min(460px, 100%);
+  width: min(468px, 100%);
   border: 1px solid rgba(148, 163, 184, 0.18);
-  border-radius: 28px;
+  border-radius: 30px;
   background: rgba(255, 255, 255, 0.82);
-  backdrop-filter: blur(12px);
+  backdrop-filter: blur(14px);
   box-shadow: 0 28px 70px rgba(15, 23, 42, 0.14);
 }
 .auth-content {
-  padding: 12px;
+  padding: 16px;
 }
 .auth-eyebrow {
   color: #6366f1;
@@ -71,14 +71,16 @@ const handleSubmit = async () => {
   text-transform: uppercase;
 }
 .auth-content h2 {
-  margin: 12px 0 0;
-  font-size: 32px;
+  margin: 14px 0 0;
+  font-size: clamp(30px, 4vw, 34px);
+  line-height: 1.05;
+  letter-spacing: -0.03em;
   color: #0f172a;
 }
 .auth-description {
-  margin: 12px 0 0;
+  margin: 14px 0 0;
   color: #64748b;
-  line-height: 1.7;
+  line-height: 1.75;
 }
 .auth-form {
   margin-top: 28px;
@@ -90,7 +92,7 @@ const handleSubmit = async () => {
   border-radius: 14px;
 }
 .auth-footer {
-  margin-top: 18px;
+  margin-top: 20px;
   display: flex;
   justify-content: center;
   align-items: center;
