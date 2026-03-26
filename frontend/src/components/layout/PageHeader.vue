@@ -25,35 +25,35 @@ defineProps<{
   justify-content: space-between;
   align-items: flex-end;
   gap: 24px;
-  margin-bottom: 28px;
-  padding: 4px 2px 0;
+  margin-bottom: 6px;
+  padding: 6px 2px 0;
 }
 .eyebrow {
   display: inline-flex;
   align-items: center;
   gap: 8px;
-  color: #4f46e5;
+  color: var(--app-accent);
   font-size: 12px;
   font-weight: 800;
   letter-spacing: 0.1em;
   text-transform: uppercase;
-  margin-bottom: 12px;
+  margin-bottom: 14px;
 }
 .eyebrow::before {
   content: '';
-  width: 26px;
+  width: 28px;
   height: 1px;
   background: linear-gradient(90deg, rgba(79, 70, 229, 0.9), rgba(56, 189, 248, 0.35));
 }
 .title {
   margin: 0;
-  font-size: clamp(30px, 3vw, 38px);
-  line-height: 1.05;
-  letter-spacing: -0.03em;
+  font-size: clamp(30px, 3vw, 40px);
+  line-height: 1.02;
+  letter-spacing: -0.04em;
   color: #0f172a;
 }
 .description {
-  margin: 14px 0 0;
+  margin: 16px 0 0;
   color: #64748b;
   line-height: 1.8;
   max-width: 760px;
