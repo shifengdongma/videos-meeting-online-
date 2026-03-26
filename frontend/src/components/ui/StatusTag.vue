@@ -29,23 +29,23 @@ const tagType = computed(() => {
   border: 1px solid transparent;
 }
 :deep(.status-tag.el-tag--danger) {
-  color: #be123c;
-  background: rgba(244, 63, 94, 0.12);
-  border-color: rgba(244, 63, 94, 0.18);
+  color: #9f1239;
+  background: rgba(244, 63, 94, 0.1);
+  border-color: rgba(244, 63, 94, 0.14);
 }
 :deep(.status-tag.el-tag--warning) {
   color: #b45309;
-  background: rgba(245, 158, 11, 0.14);
-  border-color: rgba(245, 158, 11, 0.2);
+  background: rgba(245, 158, 11, 0.1);
+  border-color: rgba(245, 158, 11, 0.16);
 }
 :deep(.status-tag.el-tag--info) {
   color: #475569;
-  background: rgba(148, 163, 184, 0.14);
-  border-color: rgba(148, 163, 184, 0.2);
+  background: rgba(148, 163, 184, 0.12);
+  border-color: rgba(148, 163, 184, 0.16);
 }
 :deep(.status-tag.el-tag--success) {
   color: #047857;
-  background: rgba(16, 185, 129, 0.12);
-  border-color: rgba(16, 185, 129, 0.18);
+  background: rgba(16, 185, 129, 0.08);
+  border-color: rgba(16, 185, 129, 0.14);
 }
 </style>
