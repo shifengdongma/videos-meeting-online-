@@ -325,6 +325,11 @@ const handleVoteSubmit = async (optionId: number) => {
   if (activeVote.value?.id === voteId) {
     voteResults.value = result.options
     submitted.value = true
+    const currentVote = activeVote.value
+    if (currentVote) {
+      currentVote.submitted = true
+      currentVote.results = result.options
+    }
   }
   ElMessage.success('投票成功')
 }
