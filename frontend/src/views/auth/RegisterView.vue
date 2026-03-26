@@ -53,51 +53,72 @@ const handleSubmit = async () => {
 
 <style scoped>
 .auth-card {
-  width: min(468px, 100%);
+  width: min(472px, 100%);
   border: 1px solid rgba(148, 163, 184, 0.18);
-  border-radius: 30px;
-  background: rgba(255, 255, 255, 0.82);
-  backdrop-filter: blur(14px);
-  box-shadow: 0 28px 70px rgba(15, 23, 42, 0.14);
+  border-radius: 32px;
+  background: rgba(255, 255, 255, 0.8);
+  backdrop-filter: blur(18px);
+  box-shadow:
+    0 20px 45px rgba(15, 23, 42, 0.12),
+    0 32px 72px rgba(59, 130, 246, 0.1);
 }
 .auth-content {
-  padding: 16px;
+  padding: 18px;
 }
 .auth-eyebrow {
-  color: #6366f1;
+  color: var(--color-primary-hover);
   font-size: 12px;
   font-weight: 700;
-  letter-spacing: 0.08em;
+  letter-spacing: 0.1em;
   text-transform: uppercase;
 }
 .auth-content h2 {
   margin: 14px 0 0;
-  font-size: clamp(30px, 4vw, 34px);
-  line-height: 1.05;
-  letter-spacing: -0.03em;
-  color: #0f172a;
+  font-size: clamp(30px, 4vw, 36px);
+  line-height: 1.02;
+  letter-spacing: -0.04em;
+  color: var(--color-text-primary);
 }
 .auth-description {
   margin: 14px 0 0;
-  color: #64748b;
-  line-height: 1.75;
+  color: var(--color-text-muted);
+  line-height: 1.8;
 }
 .auth-form {
   margin-top: 28px;
 }
+:deep(.auth-form .el-form-item) {
+  margin-bottom: 20px;
+}
+:deep(.auth-form .el-form-item__label) {
+  padding-bottom: 8px;
+  color: var(--color-text-secondary);
+  font-size: 13px;
+  font-weight: 700;
+}
 .submit-btn {
   width: 100%;
-  margin-top: 8px;
-  height: 46px;
-  border-radius: 14px;
+  margin-top: 10px;
+  height: 50px;
+  border: none;
+  border-radius: 16px;
+  background: linear-gradient(135deg, var(--color-primary) 0%, var(--color-primary-hover) 100%);
+  box-shadow:
+    0 16px 30px rgba(37, 99, 235, 0.22),
+    0 8px 18px rgba(59, 130, 246, 0.14);
+}
+.submit-btn:hover {
+  box-shadow:
+    0 22px 36px rgba(37, 99, 235, 0.28),
+    0 10px 22px rgba(59, 130, 246, 0.16);
 }
 .auth-footer {
-  margin-top: 20px;
+  margin-top: 22px;
   display: flex;
   justify-content: center;
   align-items: center;
-  gap: 4px;
-  color: #64748b;
+  gap: 6px;
+  color: var(--color-text-muted);
   font-size: 14px;
 }
 </style>
