@@ -2,15 +2,15 @@
   <div class="user-page app-page">
     <PageHeader
       eyebrow="Access control"
-      title="用户管理"
+      title="管理后台"
       description="集中维护账号角色与权限分配，帮助管理员快速识别当前系统中的角色结构。"
     />
 
     <div class="summary-grid app-summary-grid" data-columns="4">
-      <SummaryCard label="用户总数" :value="users.length" description="当前系统内的全部账号" />
-      <SummaryCard label="管理员" :value="adminCount" hint="高权限" description="负责系统配置与权限分配" />
-      <SummaryCard label="主持人" :value="hostCount" description="可创建会议与直播的账号" />
-      <SummaryCard label="普通用户" :value="userCount" description="参与会议与观看直播的账号" />
+      <SummaryCard label="用户总数" :value="users.length" description="当前系统内的全部账号" tone="primary" />
+      <SummaryCard label="管理员" :value="adminCount" hint="高权限" description="负责系统配置与权限分配" tone="warning" />
+      <SummaryCard label="主持人" :value="hostCount" description="可创建会议与直播的账号" tone="success" />
+      <SummaryCard label="普通用户" :value="userCount" description="参与会议与观看直播的账号" tone="neutral" />
     </div>
 
     <el-card class="table-card app-table-card" shadow="never">
