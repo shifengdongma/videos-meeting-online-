@@ -21,6 +21,9 @@ const __VLS_ctx = {};
 let __VLS_components;
 let __VLS_directives;
 /** @type {__VLS_StyleScopedClasses['auth-content']} */ ;
+/** @type {__VLS_StyleScopedClasses['auth-form']} */ ;
+/** @type {__VLS_StyleScopedClasses['auth-form']} */ ;
+/** @type {__VLS_StyleScopedClasses['submit-btn']} */ ;
 // CSS variable injection 
 // CSS variable injection end 
 /** @type {[typeof AuthShell, typeof AuthShell, ]} */ ;

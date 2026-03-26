@@ -36,6 +36,7 @@ debugger; /* PartiallyEnd: #3632/scriptSetup.vue */
 const __VLS_ctx = {};
 let __VLS_components;
 let __VLS_directives;
+/** @type {__VLS_StyleScopedClasses['role-select']} */ ;
 // CSS variable injection 
 // CSS variable injection end 
 __VLS_asFunctionalElement(__VLS_intrinsicElements.div, __VLS_intrinsicElements.div)({
@@ -45,12 +46,12 @@ __VLS_asFunctionalElement(__VLS_intrinsicElements.div, __VLS_intrinsicElements.d
 // @ts-ignore
 const __VLS_0 = __VLS_asFunctionalComponent(PageHeader, new PageHeader({
     eyebrow: "Access control",
-    title: "用户管理",
+    title: "管理后台",
     description: "集中维护账号角色与权限分配，帮助管理员快速识别当前系统中的角色结构。",
 }));
 const __VLS_1 = __VLS_0({
     eyebrow: "Access control",
-    title: "用户管理",
+    title: "管理后台",
     description: "集中维护账号角色与权限分配，帮助管理员快速识别当前系统中的角色结构。",
 }, ...__VLS_functionalComponentArgsRest(__VLS_0));
 __VLS_asFunctionalElement(__VLS_intrinsicElements.div, __VLS_intrinsicElements.div)({
@@ -63,11 +64,13 @@ const __VLS_3 = __VLS_asFunctionalComponent(SummaryCard, new SummaryCard({
     label: "用户总数",
     value: (__VLS_ctx.users.length),
     description: "当前系统内的全部账号",
+    tone: "primary",
 }));
 const __VLS_4 = __VLS_3({
     label: "用户总数",
     value: (__VLS_ctx.users.length),
     description: "当前系统内的全部账号",
+    tone: "primary",
 }, ...__VLS_functionalComponentArgsRest(__VLS_3));
 /** @type {[typeof SummaryCard, ]} */ ;
 // @ts-ignore
@@ -76,12 +79,14 @@ const __VLS_6 = __VLS_asFunctionalComponent(SummaryCard, new SummaryCard({
     value: (__VLS_ctx.adminCount),
     hint: "高权限",
     description: "负责系统配置与权限分配",
+    tone: "warning",
 }));
 const __VLS_7 = __VLS_6({
     label: "管理员",
     value: (__VLS_ctx.adminCount),
     hint: "高权限",
     description: "负责系统配置与权限分配",
+    tone: "warning",
 }, ...__VLS_functionalComponentArgsRest(__VLS_6));
 /** @type {[typeof SummaryCard, ]} */ ;
 // @ts-ignore
@@ -89,11 +94,13 @@ const __VLS_9 = __VLS_asFunctionalComponent(SummaryCard, new SummaryCard({
     label: "主持人",
     value: (__VLS_ctx.hostCount),
     description: "可创建会议与直播的账号",
+    tone: "success",
 }));
 const __VLS_10 = __VLS_9({
     label: "主持人",
     value: (__VLS_ctx.hostCount),
     description: "可创建会议与直播的账号",
+    tone: "success",
 }, ...__VLS_functionalComponentArgsRest(__VLS_9));
 /** @type {[typeof SummaryCard, ]} */ ;
 // @ts-ignore
@@ -101,11 +108,13 @@ const __VLS_12 = __VLS_asFunctionalComponent(SummaryCard, new SummaryCard({
     label: "普通用户",
     value: (__VLS_ctx.userCount),
     description: "参与会议与观看直播的账号",
+    tone: "neutral",
 }));
 const __VLS_13 = __VLS_12({
     label: "普通用户",
     value: (__VLS_ctx.userCount),
     description: "参与会议与观看直播的账号",
+    tone: "neutral",
 }, ...__VLS_functionalComponentArgsRest(__VLS_12));
 const __VLS_15 = {}.ElCard;
 /** @type {[typeof __VLS_components.ElCard, typeof __VLS_components.elCard, typeof __VLS_components.ElCard, typeof __VLS_components.elCard, ]} */ ;

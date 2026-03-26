@@ -32,8 +32,17 @@ let __VLS_directives;
 __VLS_asFunctionalElement(__VLS_intrinsicElements.div, __VLS_intrinsicElements.div)({
     ...{ class: "admin-shell" },
 });
+__VLS_asFunctionalElement(__VLS_intrinsicElements.div, __VLS_intrinsicElements.div)({
+    ...{ class: "shell-glow shell-glow-a" },
+});
+__VLS_asFunctionalElement(__VLS_intrinsicElements.div, __VLS_intrinsicElements.div)({
+    ...{ class: "shell-glow shell-glow-b" },
+});
 __VLS_asFunctionalElement(__VLS_intrinsicElements.aside, __VLS_intrinsicElements.aside)({
     ...{ class: "sidebar" },
+});
+__VLS_asFunctionalElement(__VLS_intrinsicElements.div, __VLS_intrinsicElements.div)({
+    ...{ class: "sidebar-inner" },
 });
 __VLS_asFunctionalElement(__VLS_intrinsicElements.div, __VLS_intrinsicElements.div)({
     ...{ class: "brand-block" },
@@ -130,6 +139,11 @@ __VLS_asFunctionalElement(__VLS_intrinsicElements.div, __VLS_intrinsicElements.d
     ...{ class: "user-card" },
 });
 __VLS_asFunctionalElement(__VLS_intrinsicElements.div, __VLS_intrinsicElements.div)({
+    ...{ class: "user-avatar" },
+});
+(__VLS_ctx.authStore.user?.username?.slice(0, 1).toUpperCase() || 'A');
+__VLS_asFunctionalElement(__VLS_intrinsicElements.div, __VLS_intrinsicElements.div)({});
+__VLS_asFunctionalElement(__VLS_intrinsicElements.div, __VLS_intrinsicElements.div)({
     ...{ class: "user-name" },
 });
 (__VLS_ctx.authStore.user?.username);
@@ -167,7 +181,12 @@ const __VLS_24 = {}.RouterView;
 const __VLS_25 = __VLS_asFunctionalComponent(__VLS_24, new __VLS_24({}));
 const __VLS_26 = __VLS_25({}, ...__VLS_functionalComponentArgsRest(__VLS_25));
 /** @type {__VLS_StyleScopedClasses['admin-shell']} */ ;
+/** @type {__VLS_StyleScopedClasses['shell-glow']} */ ;
+/** @type {__VLS_StyleScopedClasses['shell-glow-a']} */ ;
+/** @type {__VLS_StyleScopedClasses['shell-glow']} */ ;
+/** @type {__VLS_StyleScopedClasses['shell-glow-b']} */ ;
 /** @type {__VLS_StyleScopedClasses['sidebar']} */ ;
+/** @type {__VLS_StyleScopedClasses['sidebar-inner']} */ ;
 /** @type {__VLS_StyleScopedClasses['brand-block']} */ ;
 /** @type {__VLS_StyleScopedClasses['brand-mark']} */ ;
 /** @type {__VLS_StyleScopedClasses['brand-title']} */ ;
@@ -182,6 +201,7 @@ const __VLS_26 = __VLS_25({}, ...__VLS_functionalComponentArgsRest(__VLS_25));
 /** @type {__VLS_StyleScopedClasses['topbar-title']} */ ;
 /** @type {__VLS_StyleScopedClasses['topbar-actions']} */ ;
 /** @type {__VLS_StyleScopedClasses['user-card']} */ ;
+/** @type {__VLS_StyleScopedClasses['user-avatar']} */ ;
 /** @type {__VLS_StyleScopedClasses['user-name']} */ ;
 /** @type {__VLS_StyleScopedClasses['user-role']} */ ;
 /** @type {__VLS_StyleScopedClasses['logout-btn']} */ ;

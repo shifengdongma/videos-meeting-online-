@@ -1,17 +1,18 @@
 const __VLS_props = withDefaults(defineProps(), {
     empty: false,
     emptyText: '暂无媒体流',
-    icon: '▶'
+    icon: '◌'
 });
 debugger; /* PartiallyEnd: #3632/scriptSetup.vue */
 const __VLS_withDefaultsArg = (function (t) { return t; })({
     empty: false,
     emptyText: '暂无媒体流',
-    icon: '▶'
+    icon: '◌'
 });
 const __VLS_ctx = {};
 let __VLS_components;
 let __VLS_directives;
+/** @type {__VLS_StyleScopedClasses['media-tile']} */ ;
 // CSS variable injection 
 // CSS variable injection end 
 __VLS_asFunctionalElement(__VLS_intrinsicElements.div, __VLS_intrinsicElements.div)({

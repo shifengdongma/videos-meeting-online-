@@ -8,6 +8,9 @@ let __VLS_directives;
 __VLS_asFunctionalElement(__VLS_intrinsicElements.div, __VLS_intrinsicElements.div)({
     ...{ class: "empty-state" },
 });
+__VLS_asFunctionalElement(__VLS_intrinsicElements.div, __VLS_intrinsicElements.div)({
+    ...{ class: "empty-surface" },
+});
 const __VLS_0 = {}.ElEmpty;
 /** @type {[typeof __VLS_components.ElEmpty, typeof __VLS_components.elEmpty, ]} */ ;
 // @ts-ignore
@@ -24,6 +27,7 @@ if (__VLS_ctx.$slots.actions) {
     var __VLS_4 = {};
 }
 /** @type {__VLS_StyleScopedClasses['empty-state']} */ ;
+/** @type {__VLS_StyleScopedClasses['empty-surface']} */ ;
 /** @type {__VLS_StyleScopedClasses['actions']} */ ;
 // @ts-ignore
 var __VLS_5 = __VLS_4;

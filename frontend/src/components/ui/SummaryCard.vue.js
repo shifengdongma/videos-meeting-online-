@@ -1,9 +1,27 @@
-const __VLS_props = defineProps();
+import { computed } from 'vue';
+const props = withDefaults(defineProps(), {
+    tone: 'neutral'
+});
+const variantClass = computed(() => `tone-${props.tone}`);
 debugger; /* PartiallyEnd: #3632/scriptSetup.vue */
+const __VLS_withDefaultsArg = (function (t) { return t; })({
+    tone: 'neutral'
+});
 const __VLS_ctx = {};
 let __VLS_components;
 let __VLS_directives;
 /** @type {__VLS_StyleScopedClasses['summary-card']} */ ;
+/** @type {__VLS_StyleScopedClasses['summary-card']} */ ;
+/** @type {__VLS_StyleScopedClasses['tone-neutral']} */ ;
+/** @type {__VLS_StyleScopedClasses['hint']} */ ;
+/** @type {__VLS_StyleScopedClasses['tone-primary']} */ ;
+/** @type {__VLS_StyleScopedClasses['hint']} */ ;
+/** @type {__VLS_StyleScopedClasses['tone-success']} */ ;
+/** @type {__VLS_StyleScopedClasses['hint']} */ ;
+/** @type {__VLS_StyleScopedClasses['tone-warning']} */ ;
+/** @type {__VLS_StyleScopedClasses['hint']} */ ;
+/** @type {__VLS_StyleScopedClasses['tone-danger']} */ ;
+/** @type {__VLS_StyleScopedClasses['hint']} */ ;
 // CSS variable injection 
 // CSS variable injection end 
 const __VLS_0 = {}.ElCard;
@@ -12,10 +30,12 @@ const __VLS_0 = {}.ElCard;
 const __VLS_1 = __VLS_asFunctionalComponent(__VLS_0, new __VLS_0({
     shadow: "hover",
     ...{ class: "summary-card" },
+    ...{ class: (__VLS_ctx.variantClass) },
 }));
 const __VLS_2 = __VLS_1({
     shadow: "hover",
     ...{ class: "summary-card" },
+    ...{ class: (__VLS_ctx.variantClass) },
 }, ...__VLS_functionalComponentArgsRest(__VLS_1));
 var __VLS_4 = {};
 __VLS_3.slots.default;
@@ -52,14 +72,18 @@ var __VLS_3;
 var __VLS_dollars;
 const __VLS_self = (await import('vue')).defineComponent({
     setup() {
-        return {};
+        return {
+            variantClass: variantClass,
+        };
     },
     __typeProps: {},
+    props: {},
 });
 export default (await import('vue')).defineComponent({
     setup() {
         return {};
     },
     __typeProps: {},
+    props: {},
 });
 ; /* PartiallyEnd: #4569/main.vue */

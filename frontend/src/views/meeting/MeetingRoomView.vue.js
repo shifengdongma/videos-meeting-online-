@@ -232,6 +232,7 @@ let __VLS_directives;
 /** @type {__VLS_StyleScopedClasses['room-layout']} */ ;
 /** @type {__VLS_StyleScopedClasses['room-summary']} */ ;
 /** @type {__VLS_StyleScopedClasses['video-grid']} */ ;
+/** @type {__VLS_StyleScopedClasses['media-tile-main']} */ ;
 /** @type {__VLS_StyleScopedClasses['room-head']} */ ;
 // CSS variable injection 
 // CSS variable injection end 
@@ -248,70 +249,6 @@ __VLS_asFunctionalElement(__VLS_intrinsicElements.div, __VLS_intrinsicElements.d
 __VLS_asFunctionalElement(__VLS_intrinsicElements.h1, __VLS_intrinsicElements.h1)({});
 (__VLS_ctx.meetingId);
 __VLS_asFunctionalElement(__VLS_intrinsicElements.p, __VLS_intrinsicElements.p)({});
-__VLS_asFunctionalElement(__VLS_intrinsicElements.div, __VLS_intrinsicElements.div)({
-    ...{ class: "room-actions" },
-});
-const __VLS_0 = {}.ElButton;
-/** @type {[typeof __VLS_components.ElButton, typeof __VLS_components.elButton, typeof __VLS_components.ElButton, typeof __VLS_components.elButton, ]} */ ;
-// @ts-ignore
-const __VLS_1 = __VLS_asFunctionalComponent(__VLS_0, new __VLS_0({
-    ...{ 'onClick': {} },
-    type: "primary",
-}));
-const __VLS_2 = __VLS_1({
-    ...{ 'onClick': {} },
-    type: "primary",
-}, ...__VLS_functionalComponentArgsRest(__VLS_1));
-let __VLS_4;
-let __VLS_5;
-let __VLS_6;
-const __VLS_7 = {
-    onClick: (__VLS_ctx.toggleCamera)
-};
-__VLS_3.slots.default;
-(__VLS_ctx.localStream ? '关闭摄像头/麦克风' : '打开摄像头/麦克风');
-var __VLS_3;
-const __VLS_8 = {}.ElButton;
-/** @type {[typeof __VLS_components.ElButton, typeof __VLS_components.elButton, typeof __VLS_components.ElButton, typeof __VLS_components.elButton, ]} */ ;
-// @ts-ignore
-const __VLS_9 = __VLS_asFunctionalComponent(__VLS_8, new __VLS_8({
-    ...{ 'onClick': {} },
-}));
-const __VLS_10 = __VLS_9({
-    ...{ 'onClick': {} },
-}, ...__VLS_functionalComponentArgsRest(__VLS_9));
-let __VLS_12;
-let __VLS_13;
-let __VLS_14;
-const __VLS_15 = {
-    onClick: (__VLS_ctx.toggleScreenShare)
-};
-__VLS_11.slots.default;
-(__VLS_ctx.screenStream ? '停止桌面共享' : '桌面共享');
-var __VLS_11;
-if (__VLS_ctx.canStartVote) {
-    const __VLS_16 = {}.ElButton;
-    /** @type {[typeof __VLS_components.ElButton, typeof __VLS_components.elButton, typeof __VLS_components.ElButton, typeof __VLS_components.elButton, ]} */ ;
-    // @ts-ignore
-    const __VLS_17 = __VLS_asFunctionalComponent(__VLS_16, new __VLS_16({
-        ...{ 'onClick': {} },
-    }));
-    const __VLS_18 = __VLS_17({
-        ...{ 'onClick': {} },
-    }, ...__VLS_functionalComponentArgsRest(__VLS_17));
-    let __VLS_20;
-    let __VLS_21;
-    let __VLS_22;
-    const __VLS_23 = {
-        onClick: (...[$event]) => {
-            if (!(__VLS_ctx.canStartVote))
-                return;
-            __VLS_ctx.showVoteDialog = true;
-        }
-    };
-    __VLS_19.slots.default;
-    var __VLS_19;
-}
 __VLS_asFunctionalElement(__VLS_intrinsicElements.div, __VLS_intrinsicElements.div)({
     ...{ class: "room-summary" },
 });
@@ -356,19 +293,21 @@ __VLS_asFunctionalElement(__VLS_intrinsicElements.div, __VLS_intrinsicElements.d
 });
 /** @type {[typeof MediaTile, typeof MediaTile, ]} */ ;
 // @ts-ignore
-const __VLS_24 = __VLS_asFunctionalComponent(MediaTile, new MediaTile({
+const __VLS_0 = __VLS_asFunctionalComponent(MediaTile, new MediaTile({
+    ...{ class: "media-tile-main" },
     title: "本地画面",
     subtitle: "摄像头与麦克风",
     empty: (!__VLS_ctx.localStream),
     emptyText: "尚未开启本地设备",
 }));
-const __VLS_25 = __VLS_24({
+const __VLS_1 = __VLS_0({
+    ...{ class: "media-tile-main" },
     title: "本地画面",
     subtitle: "摄像头与麦克风",
     empty: (!__VLS_ctx.localStream),
     emptyText: "尚未开启本地设备",
-}, ...__VLS_functionalComponentArgsRest(__VLS_24));
-__VLS_26.slots.default;
+}, ...__VLS_functionalComponentArgsRest(__VLS_0));
+__VLS_2.slots.default;
 __VLS_asFunctionalElement(__VLS_intrinsicElements.video)({
     ref: "localVideoRef",
     autoplay: true,
@@ -376,24 +315,26 @@ __VLS_asFunctionalElement(__VLS_intrinsicElements.video)({
     playsinline: true,
 });
 /** @type {typeof __VLS_ctx.localVideoRef} */ ;
-var __VLS_26;
+var __VLS_2;
 /** @type {[typeof MediaTile, typeof MediaTile, ]} */ ;
 // @ts-ignore
-const __VLS_27 = __VLS_asFunctionalComponent(MediaTile, new MediaTile({
+const __VLS_3 = __VLS_asFunctionalComponent(MediaTile, new MediaTile({
+    ...{ class: "media-tile-main" },
     title: "桌面共享",
     subtitle: "屏幕内容同步",
     empty: (!__VLS_ctx.screenStream),
     emptyText: "尚未开启桌面共享",
-    icon: "⌘",
+    icon: "◌",
 }));
-const __VLS_28 = __VLS_27({
+const __VLS_4 = __VLS_3({
+    ...{ class: "media-tile-main" },
     title: "桌面共享",
     subtitle: "屏幕内容同步",
     empty: (!__VLS_ctx.screenStream),
     emptyText: "尚未开启桌面共享",
-    icon: "⌘",
-}, ...__VLS_functionalComponentArgsRest(__VLS_27));
-__VLS_29.slots.default;
+    icon: "◌",
+}, ...__VLS_functionalComponentArgsRest(__VLS_3));
+__VLS_5.slots.default;
 __VLS_asFunctionalElement(__VLS_intrinsicElements.video)({
     ref: "screenVideoRef",
     autoplay: true,
@@ -401,27 +342,91 @@ __VLS_asFunctionalElement(__VLS_intrinsicElements.video)({
     playsinline: true,
 });
 /** @type {typeof __VLS_ctx.screenVideoRef} */ ;
-var __VLS_29;
+var __VLS_5;
 for (const [stream] of __VLS_getVForSourceType((__VLS_ctx.remoteStreams))) {
     /** @type {[typeof MediaTile, typeof MediaTile, ]} */ ;
     // @ts-ignore
-    const __VLS_30 = __VLS_asFunctionalComponent(MediaTile, new MediaTile({
+    const __VLS_6 = __VLS_asFunctionalComponent(MediaTile, new MediaTile({
         key: (stream.id),
         title: (`远端成员 ${stream.id.slice(-4)}`),
         subtitle: "实时参会流",
     }));
-    const __VLS_31 = __VLS_30({
+    const __VLS_7 = __VLS_6({
         key: (stream.id),
         title: (`远端成员 ${stream.id.slice(-4)}`),
         subtitle: "实时参会流",
-    }, ...__VLS_functionalComponentArgsRest(__VLS_30));
-    __VLS_32.slots.default;
+    }, ...__VLS_functionalComponentArgsRest(__VLS_6));
+    __VLS_8.slots.default;
     __VLS_asFunctionalElement(__VLS_intrinsicElements.video)({
         autoplay: true,
         playsinline: true,
         ref: ((el) => __VLS_ctx.bindRemoteVideo(el, stream.mediaStream)),
     });
-    var __VLS_32;
+    var __VLS_8;
+}
+__VLS_asFunctionalElement(__VLS_intrinsicElements.div, __VLS_intrinsicElements.div)({
+    ...{ class: "floating-toolbar" },
+});
+const __VLS_9 = {}.ElButton;
+/** @type {[typeof __VLS_components.ElButton, typeof __VLS_components.elButton, typeof __VLS_components.ElButton, typeof __VLS_components.elButton, ]} */ ;
+// @ts-ignore
+const __VLS_10 = __VLS_asFunctionalComponent(__VLS_9, new __VLS_9({
+    ...{ 'onClick': {} },
+    type: "primary",
+}));
+const __VLS_11 = __VLS_10({
+    ...{ 'onClick': {} },
+    type: "primary",
+}, ...__VLS_functionalComponentArgsRest(__VLS_10));
+let __VLS_13;
+let __VLS_14;
+let __VLS_15;
+const __VLS_16 = {
+    onClick: (__VLS_ctx.toggleCamera)
+};
+__VLS_12.slots.default;
+(__VLS_ctx.localStream ? '关闭摄像头/麦克风' : '打开摄像头/麦克风');
+var __VLS_12;
+const __VLS_17 = {}.ElButton;
+/** @type {[typeof __VLS_components.ElButton, typeof __VLS_components.elButton, typeof __VLS_components.ElButton, typeof __VLS_components.elButton, ]} */ ;
+// @ts-ignore
+const __VLS_18 = __VLS_asFunctionalComponent(__VLS_17, new __VLS_17({
+    ...{ 'onClick': {} },
+}));
+const __VLS_19 = __VLS_18({
+    ...{ 'onClick': {} },
+}, ...__VLS_functionalComponentArgsRest(__VLS_18));
+let __VLS_21;
+let __VLS_22;
+let __VLS_23;
+const __VLS_24 = {
+    onClick: (__VLS_ctx.toggleScreenShare)
+};
+__VLS_20.slots.default;
+(__VLS_ctx.screenStream ? '停止桌面共享' : '桌面共享');
+var __VLS_20;
+if (__VLS_ctx.canStartVote) {
+    const __VLS_25 = {}.ElButton;
+    /** @type {[typeof __VLS_components.ElButton, typeof __VLS_components.elButton, typeof __VLS_components.ElButton, typeof __VLS_components.elButton, ]} */ ;
+    // @ts-ignore
+    const __VLS_26 = __VLS_asFunctionalComponent(__VLS_25, new __VLS_25({
+        ...{ 'onClick': {} },
+    }));
+    const __VLS_27 = __VLS_26({
+        ...{ 'onClick': {} },
+    }, ...__VLS_functionalComponentArgsRest(__VLS_26));
+    let __VLS_29;
+    let __VLS_30;
+    let __VLS_31;
+    const __VLS_32 = {
+        onClick: (...[$event]) => {
+            if (!(__VLS_ctx.canStartVote))
+                return;
+            __VLS_ctx.showVoteDialog = true;
+        }
+    };
+    __VLS_28.slots.default;
+    var __VLS_28;
 }
 __VLS_asFunctionalElement(__VLS_intrinsicElements.div, __VLS_intrinsicElements.div)({
     ...{ class: "side-section" },
@@ -579,7 +584,6 @@ var __VLS_43;
 /** @type {__VLS_StyleScopedClasses['app-page']} */ ;
 /** @type {__VLS_StyleScopedClasses['room-head']} */ ;
 /** @type {__VLS_StyleScopedClasses['room-eyebrow']} */ ;
-/** @type {__VLS_StyleScopedClasses['room-actions']} */ ;
 /** @type {__VLS_StyleScopedClasses['room-summary']} */ ;
 /** @type {__VLS_StyleScopedClasses['summary-item']} */ ;
 /** @type {__VLS_StyleScopedClasses['summary-label']} */ ;
@@ -593,6 +597,9 @@ var __VLS_43;
 /** @type {__VLS_StyleScopedClasses['room-layout']} */ ;
 /** @type {__VLS_StyleScopedClasses['media-section']} */ ;
 /** @type {__VLS_StyleScopedClasses['video-grid']} */ ;
+/** @type {__VLS_StyleScopedClasses['media-tile-main']} */ ;
+/** @type {__VLS_StyleScopedClasses['media-tile-main']} */ ;
+/** @type {__VLS_StyleScopedClasses['floating-toolbar']} */ ;
 /** @type {__VLS_StyleScopedClasses['side-section']} */ ;
 /** @type {__VLS_StyleScopedClasses['dialog-form']} */ ;
 var __VLS_dollars;

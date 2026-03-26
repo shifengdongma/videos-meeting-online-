@@ -1,13 +1,13 @@
 import { computed } from 'vue';
 const props = defineProps();
 const tagType = computed(() => {
-    if (['admin', 'ongoing', 'live'].includes(props.status || ''))
-        return 'danger';
-    if (['host', 'scheduled'].includes(props.status || ''))
+    if (['scheduled', 'host'].includes(props.status || ''))
+        return 'success';
+    if (['ongoing', 'live', 'admin'].includes(props.status || ''))
         return 'warning';
     if (['ended', 'offline'].includes(props.status || ''))
-        return 'info';
-    return 'success';
+        return 'danger';
+    return 'info';
 });
 debugger; /* PartiallyEnd: #3632/scriptSetup.vue */
 const __VLS_ctx = {};

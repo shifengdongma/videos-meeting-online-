@@ -90,11 +90,13 @@ const __VLS_11 = __VLS_asFunctionalComponent(SummaryCard, new SummaryCard({
     label: "全部直播",
     value: (__VLS_ctx.streams.length),
     description: "当前可访问的直播场次",
+    tone: "primary",
 }));
 const __VLS_12 = __VLS_11({
     label: "全部直播",
     value: (__VLS_ctx.streams.length),
     description: "当前可访问的直播场次",
+    tone: "primary",
 }, ...__VLS_functionalComponentArgsRest(__VLS_11));
 /** @type {[typeof SummaryCard, ]} */ ;
 // @ts-ignore
@@ -103,12 +105,14 @@ const __VLS_14 = __VLS_asFunctionalComponent(SummaryCard, new SummaryCard({
     value: (__VLS_ctx.streams.length),
     hint: "在线可用",
     description: "已创建完成，可直接进入直播间",
+    tone: "warning",
 }));
 const __VLS_15 = __VLS_14({
     label: "可立即进入",
     value: (__VLS_ctx.streams.length),
     hint: "在线可用",
     description: "已创建完成，可直接进入直播间",
+    tone: "warning",
 }, ...__VLS_functionalComponentArgsRest(__VLS_14));
 /** @type {[typeof SummaryCard, ]} */ ;
 // @ts-ignore
@@ -116,11 +120,13 @@ const __VLS_17 = __VLS_asFunctionalComponent(SummaryCard, new SummaryCard({
     label: "主播权限",
     value: (__VLS_ctx.canCreate ? '已开启' : '未开启'),
     description: "当前账号是否可发起直播",
+    tone: "success",
 }));
 const __VLS_18 = __VLS_17({
     label: "主播权限",
     value: (__VLS_ctx.canCreate ? '已开启' : '未开启'),
     description: "当前账号是否可发起直播",
+    tone: "success",
 }, ...__VLS_functionalComponentArgsRest(__VLS_17));
 const __VLS_20 = {}.ElCard;
 /** @type {[typeof __VLS_components.ElCard, typeof __VLS_components.elCard, typeof __VLS_components.ElCard, typeof __VLS_components.elCard, ]} */ ;
@@ -232,12 +238,12 @@ __VLS_50.slots.default;
     // @ts-ignore
     const __VLS_52 = __VLS_asFunctionalComponent(__VLS_51, new __VLS_51({
         ...{ 'onClick': {} },
-        link: true,
+        ...{ class: "enter-button" },
         type: "primary",
     }));
     const __VLS_53 = __VLS_52({
         ...{ 'onClick': {} },
-        link: true,
+        ...{ class: "enter-button" },
         type: "primary",
     }, ...__VLS_functionalComponentArgsRest(__VLS_52));
     let __VLS_55;
@@ -296,6 +302,7 @@ var __VLS_23;
 /** @type {__VLS_StyleScopedClasses['app-summary-grid']} */ ;
 /** @type {__VLS_StyleScopedClasses['table-card']} */ ;
 /** @type {__VLS_StyleScopedClasses['app-table-card']} */ ;
+/** @type {__VLS_StyleScopedClasses['enter-button']} */ ;
 var __VLS_dollars;
 const __VLS_self = (await import('vue')).defineComponent({
     setup() {

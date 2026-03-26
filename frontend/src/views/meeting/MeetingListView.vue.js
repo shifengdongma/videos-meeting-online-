@@ -111,11 +111,13 @@ const __VLS_11 = __VLS_asFunctionalComponent(SummaryCard, new SummaryCard({
     label: "全部会议",
     value: (__VLS_ctx.meetings.length),
     description: "当前系统内可访问的会议总数",
+    tone: "primary",
 }));
 const __VLS_12 = __VLS_11({
     label: "全部会议",
     value: (__VLS_ctx.meetings.length),
     description: "当前系统内可访问的会议总数",
+    tone: "primary",
 }, ...__VLS_functionalComponentArgsRest(__VLS_11));
 /** @type {[typeof SummaryCard, ]} */ ;
 // @ts-ignore
@@ -124,12 +126,14 @@ const __VLS_14 = __VLS_asFunctionalComponent(SummaryCard, new SummaryCard({
     value: (__VLS_ctx.ongoingCount),
     hint: "实时进行",
     description: "正在使用会议室的场次",
+    tone: "warning",
 }));
 const __VLS_15 = __VLS_14({
     label: "进行中",
     value: (__VLS_ctx.ongoingCount),
     hint: "实时进行",
     description: "正在使用会议室的场次",
+    tone: "warning",
 }, ...__VLS_functionalComponentArgsRest(__VLS_14));
 /** @type {[typeof SummaryCard, ]} */ ;
 // @ts-ignore
@@ -137,11 +141,13 @@ const __VLS_17 = __VLS_asFunctionalComponent(SummaryCard, new SummaryCard({
     label: "待开始",
     value: (__VLS_ctx.scheduledCount),
     description: "已排期、等待进入的会议",
+    tone: "success",
 }));
 const __VLS_18 = __VLS_17({
     label: "待开始",
     value: (__VLS_ctx.scheduledCount),
     description: "已排期、等待进入的会议",
+    tone: "success",
 }, ...__VLS_functionalComponentArgsRest(__VLS_17));
 /** @type {[typeof SummaryCard, ]} */ ;
 // @ts-ignore
@@ -149,11 +155,13 @@ const __VLS_20 = __VLS_asFunctionalComponent(SummaryCard, new SummaryCard({
     label: "已结束",
     value: (__VLS_ctx.endedCount),
     description: "已完成的历史会议",
+    tone: "danger",
 }));
 const __VLS_21 = __VLS_20({
     label: "已结束",
     value: (__VLS_ctx.endedCount),
     description: "已完成的历史会议",
+    tone: "danger",
 }, ...__VLS_functionalComponentArgsRest(__VLS_20));
 const __VLS_23 = {}.ElCard;
 /** @type {[typeof __VLS_components.ElCard, typeof __VLS_components.elCard, typeof __VLS_components.ElCard, typeof __VLS_components.elCard, ]} */ ;
@@ -266,12 +274,12 @@ __VLS_53.slots.default;
     // @ts-ignore
     const __VLS_55 = __VLS_asFunctionalComponent(__VLS_54, new __VLS_54({
         ...{ 'onClick': {} },
-        link: true,
+        ...{ class: "enter-button" },
         type: "primary",
     }));
     const __VLS_56 = __VLS_55({
         ...{ 'onClick': {} },
-        link: true,
+        ...{ class: "enter-button" },
         type: "primary",
     }, ...__VLS_functionalComponentArgsRest(__VLS_55));
     let __VLS_58;
@@ -479,6 +487,7 @@ var __VLS_76;
 /** @type {__VLS_StyleScopedClasses['app-summary-grid']} */ ;
 /** @type {__VLS_StyleScopedClasses['table-card']} */ ;
 /** @type {__VLS_StyleScopedClasses['app-table-card']} */ ;
+/** @type {__VLS_StyleScopedClasses['enter-button']} */ ;
 /** @type {__VLS_StyleScopedClasses['dialog-form']} */ ;
 /** @type {__VLS_StyleScopedClasses['time-picker']} */ ;
 /** @type {__VLS_StyleScopedClasses['time-picker']} */ ;
