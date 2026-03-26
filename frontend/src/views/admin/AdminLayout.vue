@@ -1,29 +1,34 @@
 <template>
   <div class="admin-shell">
+    <div class="shell-glow shell-glow-a"></div>
+    <div class="shell-glow shell-glow-b"></div>
+
     <aside class="sidebar">
-      <div class="brand-block">
-        <div class="brand-mark">ADM</div>
-        <div>
-          <div class="brand-title">管理后台</div>
-          <div class="brand-subtitle">Users · Roles · Templates</div>
+      <div class="sidebar-inner">
+        <div class="brand-block">
+          <div class="brand-mark">ADM</div>
+          <div>
+            <div class="brand-title">管理后台</div>
+            <div class="brand-subtitle">Users · Roles · Templates</div>
+          </div>
         </div>
-      </div>
 
-      <el-menu :default-active="route.path" router class="nav-menu">
-        <el-menu-item index="/admin/users">
-          <span>用户管理</span>
-        </el-menu-item>
-        <el-menu-item index="/admin/rooms">
-          <span>会议室模板</span>
-        </el-menu-item>
-        <el-menu-item index="/meetings">
-          <span>返回前台</span>
-        </el-menu-item>
-      </el-menu>
+        <el-menu :default-active="route.path" router class="nav-menu">
+          <el-menu-item index="/admin/users">
+            <span>用户管理</span>
+          </el-menu-item>
+          <el-menu-item index="/admin/rooms">
+            <span>会议室模板</span>
+          </el-menu-item>
+          <el-menu-item index="/meetings">
+            <span>返回前台</span>
+          </el-menu-item>
+        </el-menu>
 
-      <div class="sidebar-footer">
-        <div class="footer-label">当前账号</div>
-        <div class="footer-value">{{ authStore.user?.username }}</div>
+        <div class="sidebar-footer">
+          <div class="footer-label">当前账号</div>
+          <div class="footer-value">{{ authStore.user?.username }}</div>
+        </div>
       </div>
     </aside>
 
@@ -35,8 +40,11 @@
         </div>
         <div class="topbar-actions">
           <div class="user-card">
-            <div class="user-name">{{ authStore.user?.username }}</div>
-            <div class="user-role">系统管理员</div>
+            <div class="user-avatar">{{ authStore.user?.username?.slice(0, 1).toUpperCase() || 'A' }}</div>
+            <div>
+              <div class="user-name">{{ authStore.user?.username }}</div>
+              <div class="user-role">系统管理员</div>
+            </div>
           </div>
           <el-button class="logout-btn" @click="logout">退出登录</el-button>
         </div>
