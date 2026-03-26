@@ -11,14 +11,28 @@
   --app-surface: rgba(255, 255, 255, 0.88);
   --app-surface-strong: rgba(255, 255, 255, 0.96);
   --app-surface-muted: rgba(248, 250, 252, 0.92);
+  --app-surface-glass: rgba(255, 255, 255, 0.78);
   --app-shadow-soft: 0 20px 45px rgba(15, 23, 42, 0.08);
   --app-shadow-hover: 0 24px 60px rgba(15, 23, 42, 0.12);
+  --app-shadow-strong: 0 28px 72px rgba(15, 23, 42, 0.14);
+  --app-radius-xl: 32px;
   --app-radius-lg: 28px;
   --app-radius-md: 20px;
   --app-radius-sm: 14px;
+  --app-radius-xs: 10px;
   --app-accent: #4f46e5;
+  --app-accent-strong: #4338ca;
   --app-accent-soft: rgba(79, 70, 229, 0.12);
+  --app-accent-secondary: #38bdf8;
   --app-success: #059669;
+  --app-shell-sidebar-width: 272px;
+  --app-shell-gutter: 32px;
+  --app-shell-gutter-compact: 20px;
+  --app-shell-topbar-padding-top: 28px;
+  --app-shell-topbar-padding-bottom: 18px;
+  --app-page-gap: 24px;
+  --app-card-padding: 24px;
+  --app-card-padding-compact: 18px;
 }
 
 * {
@@ -40,6 +54,7 @@ body {
   color: var(--app-text-primary);
   text-rendering: optimizeLegibility;
   -webkit-font-smoothing: antialiased;
+  line-height: 1.5;
 }
 
 button,
@@ -172,16 +187,46 @@ a {
   padding-block: 30px;
 }
 
-.el-progress-bar__outer {
-  border-radius: 999px;
-}
-
+.el-progress-bar__outer,
 .el-progress-bar__inner {
   border-radius: 999px;
 }
 
 .el-menu {
   border-right: none;
+}
+
+.app-page {
+  display: grid;
+  gap: var(--app-page-gap);
+}
+
+.app-summary-grid {
+  display: grid;
+  gap: 18px;
+  grid-template-columns: repeat(var(--summary-columns, 4), minmax(0, 1fr));
+}
+
+.app-surface-card,
+.app-table-card {
+  border: 1px solid var(--app-border-soft);
+  border-radius: 24px;
+}
+
+.app-panel-muted {
+  background: linear-gradient(180deg, rgba(255, 255, 255, 0.96) 0%, rgba(248, 250, 252, 0.92) 100%);
+}
+
+@media (max-width: 1100px) {
+  .app-summary-grid[data-columns='4'] {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+}
+
+@media (max-width: 960px) {
+  .app-summary-grid[data-columns='3'] {
+    grid-template-columns: 1fr;
+  }
 }
 
 @media (max-width: 900px) {
@@ -192,5 +237,14 @@ a {
   .el-dialog__footer {
     padding-left: 18px;
     padding-right: 18px;
+  }
+}
+
+@media (max-width: 720px) {
+  .app-summary-grid,
+  .app-summary-grid[data-columns='4'],
+  .app-summary-grid[data-columns='3'],
+  .app-summary-grid[data-columns='2'] {
+    grid-template-columns: 1fr;
   }
 }
