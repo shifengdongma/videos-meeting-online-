@@ -16,7 +16,7 @@
       <SummaryCard label="主播权限" :value="canCreate ? '已开启' : '未开启'" description="当前账号是否可发起直播" />
     </div>
 
-    <el-card class="table-card" shadow="never">
+    <el-card class="table-card app-table-card" shadow="never">
       <el-table :data="streams" v-loading="loading">
         <el-table-column prop="title" label="标题" min-width="220" />
         <el-table-column prop="room_code" label="房间号" min-width="150" />
