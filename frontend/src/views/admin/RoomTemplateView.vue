@@ -6,7 +6,7 @@
       description="预留不同会议模板与场景配置入口，便于后续扩展专项会议室能力。"
     />
 
-    <div class="summary-grid">
+    <div class="summary-grid app-summary-grid" data-columns="2">
       <SummaryCard label="模板能力" value="规划中" description="当前阶段以管理入口与展示框架为主" />
       <SummaryCard label="扩展方向" value="多场景" description="可覆盖培训、直播、表决等业务类型" />
     </div>
