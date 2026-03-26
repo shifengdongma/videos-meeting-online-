@@ -15,11 +15,19 @@ defineProps<{
 
 <style scoped>
 .empty-state {
-  padding: 28px 0;
+  padding: 34px 0 20px;
+}
+:deep(.el-empty) {
+  --el-empty-fill-color-0: rgba(99, 102, 241, 0.08);
+  --el-empty-fill-color-1: rgba(99, 102, 241, 0.04);
+}
+:deep(.el-empty__description p) {
+  color: #64748b;
+  font-size: 14px;
 }
 .actions {
   display: flex;
   justify-content: center;
-  margin-top: 8px;
+  margin-top: 12px;
 }
 </style>
