@@ -152,10 +152,6 @@ onBeforeUnmount(() => {
 </script>
 
 <style scoped>
-.live-room-page {
-  display: grid;
-  gap: 24px;
-}
 .live-head {
   display: flex;
   justify-content: space-between;
@@ -171,7 +167,9 @@ onBeforeUnmount(() => {
 }
 .live-head h1 {
   margin: 10px 0 0;
-  font-size: 34px;
+  font-size: clamp(30px, 4vw, 36px);
+  line-height: 1.03;
+  letter-spacing: -0.03em;
   color: #0f172a;
 }
 .live-head p {
@@ -190,10 +188,11 @@ onBeforeUnmount(() => {
   gap: 18px;
 }
 .summary-item {
-  padding: 18px 20px;
-  border-radius: 20px;
+  padding: 20px 22px;
+  border-radius: 22px;
   background: rgba(255, 255, 255, 0.86);
   border: 1px solid rgba(148, 163, 184, 0.18);
+  box-shadow: 0 16px 36px rgba(15, 23, 42, 0.06);
 }
 .summary-label {
   color: #64748b;
