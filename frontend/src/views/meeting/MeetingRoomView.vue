@@ -197,23 +197,55 @@ const createPeerConnection = (peerId: string) => {
 }
 
 const bindRemoteVideo = (el: HTMLVideoElement | null, stream: MediaStream) => {
-  if (el) el.srcObject = stream
+  setVideoStream(el, stream)
+}
+
+const stopCamera = () => {
+  cleanupStream(localStream, localVideoRef)
+}
+
+const stopScreenShare = () => {
+  cleanupStream(screenStream, screenVideoRef)
 }
 
 const openCamera = async () => {
+  if (localStream.value) return
   localStream.value = await navigator.mediaDevices.getUserMedia({ video: true, audio: true })
-  if (localVideoRef.value) {
-    localVideoRef.value.srcObject = localStream.value
-  }
+  setVideoStream(localVideoRef.value, localStream.value)
+  addStreamToPeers(localStream.value)
   ElMessage.success('已打开摄像头和麦克风')
 }
 
 const shareScreen = async () => {
+  if (screenStream.value) return
   screenStream.value = await navigator.mediaDevices.getDisplayMedia({ video: true })
-  if (screenVideoRef.value) {
-    screenVideoRef.value.srcObject = screenStream.value
+  const [screenTrack] = screenStream.value.getVideoTracks()
+  if (screenTrack) {
+    screenTrack.onended = () => {
+      stopScreenShare()
+    }
   }
+  setVideoStream(screenVideoRef.value, screenStream.value)
+  addStreamToPeers(screenStream.value)
   ElMessage.success('已开启桌面共享')
+}
+
+const toggleCamera = async () => {
+  if (localStream.value) {
+    stopCamera()
+    ElMessage.success('已关闭摄像头和麦克风')
+    return
+  }
+  await openCamera()
+}
+
+const toggleScreenShare = async () => {
+  if (screenStream.value) {
+    stopScreenShare()
+    ElMessage.success('已停止桌面共享')
+    return
+  }
+  await shareScreen()
 }
 
 const handleSignalMessage = async (raw: MessageEvent<string>) => {
