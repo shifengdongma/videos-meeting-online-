@@ -11,7 +11,7 @@
       <SummaryCard label="扩展方向" value="多场景" description="可覆盖培训、直播、表决等业务类型" />
     </div>
 
-    <el-card class="content-card" shadow="never">
+    <el-card class="content-card app-surface-card app-panel-muted" shadow="never">
       <EmptyState description="后续可扩展为特殊会议室模板分配能力。" />
     </el-card>
   </div>
