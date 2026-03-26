@@ -299,22 +299,25 @@ const loadVotes = async () => {
 }
 
 const startVote = async () => {
-  const data = await createVote({
+  await createVote({
     meeting_id: meetingId,
     topic: voteForm.topic,
     options: voteForm.options
   })
-  votes.value = [data, ...votes.value]
   showVoteDialog.value = false
   voteForm.topic = ''
+  resetVoteState()
   ElMessage.success('表决已发起')
 }
 
 const handleVoteSubmit = async (optionId: number) => {
   if (!activeVote.value) return
-  const result = await submitVote(activeVote.value.id, optionId)
-  voteResults.value = result.options
-  submitted.value = true
+  const voteId = activeVote.value.id
+  const result = await submitVote(voteId, optionId)
+  if (activeVote.value?.id === voteId) {
+    voteResults.value = result.options
+    submitted.value = true
+  }
   ElMessage.success('投票成功')
 }
 
@@ -324,6 +327,8 @@ onMounted(async () => {
 })
 
 onBeforeUnmount(() => {
+  stopCamera()
+  stopScreenShare()
   wsClient.close()
   peerConnections.forEach((pc) => pc.close())
 })
