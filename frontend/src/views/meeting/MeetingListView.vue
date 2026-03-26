@@ -125,4 +125,7 @@ onMounted(loadMeetings)
 .time-picker {
   width: 100%;
 }
+.enter-button {
+  min-width: 108px;
+}
 </style>
