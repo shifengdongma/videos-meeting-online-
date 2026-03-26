@@ -53,20 +53,20 @@ const handleSubmit = async () => {
 
 <style scoped>
 .auth-card {
-  width: min(472px, 100%);
-  border: 1px solid rgba(148, 163, 184, 0.18);
+  width: min(488px, 100%);
+  border: 1px solid rgba(46, 58, 89, 0.12);
   border-radius: 32px;
-  background: rgba(255, 255, 255, 0.8);
-  backdrop-filter: blur(18px);
+  background: linear-gradient(180deg, rgba(255, 255, 255, 0.84) 0%, rgba(255, 255, 255, 0.72) 100%);
+  backdrop-filter: blur(22px);
   box-shadow:
-    0 20px 45px rgba(15, 23, 42, 0.12),
-    0 32px 72px rgba(59, 130, 246, 0.1);
+    0 24px 56px rgba(26, 31, 59, 0.14),
+    0 34px 78px rgba(46, 58, 89, 0.12);
 }
 .auth-content {
-  padding: 18px;
+  padding: 20px;
 }
 .auth-eyebrow {
-  color: var(--color-primary-hover);
+  color: var(--color-primary);
   font-size: 12px;
   font-weight: 700;
   letter-spacing: 0.1em;
@@ -99,18 +99,18 @@ const handleSubmit = async () => {
 .submit-btn {
   width: 100%;
   margin-top: 10px;
-  height: 50px;
+  height: 52px;
   border: none;
   border-radius: 16px;
   background: linear-gradient(135deg, var(--color-primary) 0%, var(--color-primary-hover) 100%);
   box-shadow:
-    0 16px 30px rgba(37, 99, 235, 0.22),
-    0 8px 18px rgba(59, 130, 246, 0.14);
+    0 18px 34px rgba(46, 58, 89, 0.22),
+    0 8px 20px rgba(46, 58, 89, 0.14);
 }
 .submit-btn:hover {
   box-shadow:
-    0 22px 36px rgba(37, 99, 235, 0.28),
-    0 10px 22px rgba(59, 130, 246, 0.16);
+    0 22px 38px rgba(46, 58, 89, 0.28),
+    0 10px 22px rgba(46, 58, 89, 0.16);
 }
 .auth-footer {
   margin-top: 22px;
