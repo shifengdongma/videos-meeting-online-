@@ -294,7 +294,7 @@ const handleSignalMessage = async (raw: MessageEvent<string>) => {
 }
 
 const connectRoom = () => {
-  wsClient.connect(`ws://127.0.0.1:8000/ws/meetings/${meetingId}`, handleSignalMessage)
+  wsClient.connect(`ws://127.0.0.1:8001/ws/meetings/${meetingId}`, handleSignalMessage)
   setTimeout(() => wsClient.send({ type: 'join', from: selfId }), 300)
 }
 
