@@ -288,6 +288,8 @@ a {
 .app-table-card {
   border: 1px solid var(--app-border-soft);
   border-radius: 24px;
+  background: linear-gradient(180deg, rgba(255, 255, 255, 0.96) 0%, rgba(248, 250, 252, 0.88) 100%);
+  box-shadow: var(--shadow-soft);
 }
 
 .app-panel-muted {
