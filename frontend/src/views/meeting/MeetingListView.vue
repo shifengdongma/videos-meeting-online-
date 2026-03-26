@@ -29,7 +29,7 @@
         </el-table-column>
         <el-table-column label="操作" width="160" fixed="right">
           <template #default="scope">
-            <el-button link type="primary" @click="openMeeting(scope.row.id)">进入会议室</el-button>
+            <el-button class="enter-button" type="primary" @click="openMeeting(scope.row.id)">进入会议室</el-button>
           </template>
         </el-table-column>
       </el-table>
