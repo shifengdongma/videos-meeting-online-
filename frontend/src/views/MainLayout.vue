@@ -89,7 +89,7 @@ const logout = () => {
 .app-shell {
   min-height: 100vh;
   display: grid;
-  grid-template-columns: 260px minmax(0, 1fr);
+  grid-template-columns: var(--app-shell-sidebar-width) minmax(0, 1fr);
   background:
     radial-gradient(circle at top left, rgba(99, 102, 241, 0.14), transparent 24%),
     linear-gradient(180deg, #f8fafc 0%, #eef2ff 100%);
@@ -97,7 +97,7 @@ const logout = () => {
 .sidebar {
   display: flex;
   flex-direction: column;
-  padding: 28px 18px 20px;
+  padding: 30px 20px 22px;
   background: linear-gradient(180deg, #0f172a 0%, #111827 100%);
   color: #fff;
   border-right: 1px solid rgba(148, 163, 184, 0.12);
@@ -106,12 +106,12 @@ const logout = () => {
   display: flex;
   align-items: center;
   gap: 14px;
-  padding: 0 10px 24px;
+  padding: 0 10px 26px;
 }
 .brand-mark {
-  width: 44px;
-  height: 44px;
-  border-radius: 14px;
+  width: 46px;
+  height: 46px;
+  border-radius: 16px;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -119,6 +119,7 @@ const logout = () => {
   font-size: 16px;
   font-weight: 800;
   letter-spacing: 0.04em;
+  box-shadow: 0 18px 36px rgba(79, 70, 229, 0.24);
 }
 .brand-title {
   font-size: 16px;
@@ -135,25 +136,28 @@ const logout = () => {
   background: transparent;
 }
 :deep(.nav-menu .el-menu-item) {
-  height: 48px;
+  height: 50px;
   margin-bottom: 8px;
-  border-radius: 14px;
+  border-radius: 16px;
   color: rgba(255, 255, 255, 0.74);
+  font-weight: 600;
 }
 :deep(.nav-menu .el-menu-item:hover) {
   background: rgba(255, 255, 255, 0.08);
   color: #fff;
 }
 :deep(.nav-menu .el-menu-item.is-active) {
-  background: linear-gradient(135deg, rgba(99, 102, 241, 0.26), rgba(56, 189, 248, 0.16));
+  background: linear-gradient(135deg, rgba(99, 102, 241, 0.28), rgba(56, 189, 248, 0.18));
   color: #fff;
+  box-shadow: inset 0 0 0 1px rgba(255, 255, 255, 0.06);
 }
 .sidebar-footer {
   margin-top: 20px;
-  padding: 16px;
-  border-radius: 18px;
+  padding: 18px;
+  border-radius: 20px;
   background: rgba(255, 255, 255, 0.06);
   border: 1px solid rgba(255, 255, 255, 0.08);
+  backdrop-filter: blur(12px);
 }
 .footer-label {
   color: rgba(255, 255, 255, 0.58);
@@ -174,7 +178,7 @@ const logout = () => {
   align-items: center;
   justify-content: space-between;
   gap: 20px;
-  padding: 24px 32px 18px;
+  padding: var(--app-shell-topbar-padding-top) var(--app-shell-gutter) var(--app-shell-topbar-padding-bottom);
 }
 .topbar-label {
   color: #6366f1;
@@ -185,8 +189,10 @@ const logout = () => {
 }
 .topbar-title {
   margin-top: 8px;
-  font-size: 30px;
+  font-size: clamp(28px, 3vw, 34px);
   font-weight: 700;
+  line-height: 1.05;
+  letter-spacing: -0.03em;
   color: #0f172a;
 }
 .topbar-actions {
@@ -196,10 +202,11 @@ const logout = () => {
 }
 .user-card {
   padding: 10px 14px;
-  border-radius: 16px;
-  background: rgba(255, 255, 255, 0.78);
+  border-radius: 18px;
+  background: var(--app-surface-glass);
   border: 1px solid rgba(148, 163, 184, 0.2);
   box-shadow: 0 10px 30px rgba(15, 23, 42, 0.08);
+  backdrop-filter: blur(12px);
 }
 .user-name {
   font-size: 14px;
@@ -216,23 +223,22 @@ const logout = () => {
 }
 .content-area {
   flex: 1;
-  padding: 0 32px 32px;
+  padding: 0 var(--app-shell-gutter) var(--app-shell-gutter);
 }
 .content-inner {
   min-height: 100%;
-  border-radius: 28px;
 }
 @media (max-width: 1100px) {
   .app-shell {
     grid-template-columns: 1fr;
   }
   .sidebar {
-    padding-bottom: 12px;
+    padding-bottom: 14px;
   }
   .topbar,
   .content-area {
-    padding-left: 20px;
-    padding-right: 20px;
+    padding-left: var(--app-shell-gutter-compact);
+    padding-right: var(--app-shell-gutter-compact);
   }
 }
 @media (max-width: 720px) {
