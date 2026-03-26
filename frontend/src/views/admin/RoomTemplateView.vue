@@ -24,22 +24,4 @@ import SummaryCard from '../../components/ui/SummaryCard.vue'
 </script>
 
 <style scoped>
-.template-page {
-  display: grid;
-  gap: 24px;
-}
-.summary-grid {
-  display: grid;
-  grid-template-columns: repeat(2, minmax(0, 1fr));
-  gap: 18px;
-}
-.content-card {
-  border: 1px solid rgba(148, 163, 184, 0.18);
-  border-radius: 24px;
-}
-@media (max-width: 720px) {
-  .summary-grid {
-    grid-template-columns: 1fr;
-  }
-}
 </style>
