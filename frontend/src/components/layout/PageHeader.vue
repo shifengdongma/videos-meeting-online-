@@ -23,42 +23,57 @@ defineProps<{
 .page-header {
   display: flex;
   justify-content: space-between;
-  align-items: flex-start;
-  gap: 20px;
-  margin-bottom: 24px;
+  align-items: flex-end;
+  gap: 24px;
+  margin-bottom: 28px;
+  padding: 4px 2px 0;
 }
 .eyebrow {
-  color: #6366f1;
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  color: #4f46e5;
   font-size: 12px;
-  font-weight: 700;
-  letter-spacing: 0.08em;
+  font-weight: 800;
+  letter-spacing: 0.1em;
   text-transform: uppercase;
-  margin-bottom: 10px;
+  margin-bottom: 12px;
+}
+.eyebrow::before {
+  content: '';
+  width: 26px;
+  height: 1px;
+  background: linear-gradient(90deg, rgba(79, 70, 229, 0.9), rgba(56, 189, 248, 0.35));
 }
 .title {
   margin: 0;
-  font-size: 30px;
-  line-height: 1.15;
+  font-size: clamp(30px, 3vw, 38px);
+  line-height: 1.05;
+  letter-spacing: -0.03em;
   color: #0f172a;
 }
 .description {
-  margin: 10px 0 0;
+  margin: 14px 0 0;
   color: #64748b;
-  line-height: 1.6;
-  max-width: 720px;
+  line-height: 1.8;
+  max-width: 760px;
+  font-size: 15px;
 }
 .actions {
   display: flex;
   align-items: center;
+  justify-content: flex-end;
   gap: 12px;
   flex-wrap: wrap;
 }
 @media (max-width: 900px) {
   .page-header {
     flex-direction: column;
+    align-items: flex-start;
   }
-  .title {
-    font-size: 26px;
+  .actions {
+    width: 100%;
+    justify-content: flex-start;
   }
 }
 </style>
