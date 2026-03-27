@@ -70,23 +70,27 @@
           </p>
         </div>
 
-        <el-form class="mt-8" @submit.prevent="handleSubmit">
-          <el-form-item label="用户名" class="mb-5">
+        <el-form class="mt-8" label-position="top" @submit.prevent="handleSubmit">
+          <el-form-item label="用户名" class="mb-5 text-sm font-semibold text-slate-700">
             <el-input
               v-model="form.username"
               size="large"
               placeholder="请输入用户名"
-              class="tailwind-auth-input"
+              class="w-full"
+              style="--el-input-bg-color: rgb(249 250 251); --el-input-border-color: transparent; --el-input-hover-border-color: transparent; --el-input-focus-border-color: transparent; --el-input-border-radius: 0.5rem; --el-input-text-color: #0f172a; --el-input-box-shadow: inset 0 2px 6px rgba(15, 23, 42, 0.08), 0 0 0 0 rgba(46, 58, 89, 0); --el-input-focus-box-shadow: inset 0 2px 6px rgba(15, 23, 42, 0.08), 0 0 0 2px rgba(46, 58, 89, 0.5);"
+              input-style="min-height: 50px; padding: 12px 16px;"
             />
           </el-form-item>
-          <el-form-item label="密码" class="mb-5">
+          <el-form-item label="密码" class="mb-5 text-sm font-semibold text-slate-700">
             <el-input
               v-model="form.password"
               type="password"
               show-password
               size="large"
               placeholder="请输入密码"
-              class="tailwind-auth-input"
+              class="w-full"
+              style="--el-input-bg-color: rgb(249 250 251); --el-input-border-color: transparent; --el-input-hover-border-color: transparent; --el-input-focus-border-color: transparent; --el-input-border-radius: 0.5rem; --el-input-text-color: #0f172a; --el-input-box-shadow: inset 0 2px 6px rgba(15, 23, 42, 0.08), 0 0 0 0 rgba(46, 58, 89, 0); --el-input-focus-box-shadow: inset 0 2px 6px rgba(15, 23, 42, 0.08), 0 0 0 2px rgba(46, 58, 89, 0.5);"
+              input-style="min-height: 50px; padding: 12px 16px;"
             />
           </el-form-item>
 
@@ -114,7 +118,6 @@ import { reactive } from 'vue'
 import { ElMessage } from 'element-plus'
 import { useRouter } from 'vue-router'
 
-import AuthShell from '../../components/auth/AuthShell.vue'
 import { useAuthStore } from '../../stores/auth'
 
 const router = useRouter()
@@ -131,42 +134,3 @@ const handleSubmit = async () => {
   }
 }
 </script>
-
-<style scoped>
-:deep(.el-form-item) {
-  display: block;
-}
-
-:deep(.el-form-item__label) {
-  margin-bottom: 8px;
-  padding: 0;
-  color: #334155;
-  font-size: 14px;
-  font-weight: 600;
-  line-height: 1.5;
-}
-
-:deep(.tailwind-auth-input .el-input__wrapper) {
-  border-radius: 0.5rem;
-  background-color: rgb(249 250 251);
-  box-shadow: inset 0 2px 6px rgba(15, 23, 42, 0.08);
-  padding: 0 1rem;
-  min-height: 50px;
-  transition: all 0.2s ease;
-}
-
-:deep(.tailwind-auth-input .el-input__wrapper.is-focus) {
-  box-shadow:
-    inset 0 2px 6px rgba(15, 23, 42, 0.08),
-    0 0 0 2px rgba(46, 58, 89, 0.5);
-}
-
-:deep(.tailwind-auth-input .el-input__inner) {
-  color: #0f172a;
-}
-
-:deep(.el-button.submit-btn),
-:deep(.el-button--primary) {
-  box-shadow: none;
-}
-</style>
