@@ -35,18 +35,25 @@
     <div class="main-panel">
       <header class="topbar">
         <div>
-          <div class="topbar-label">Admin workspace</div>
+          <div class="topbar-label">统一协作平台</div>
           <div class="topbar-title">{{ pageTitle }}</div>
         </div>
-        <div class="topbar-actions">
-          <div class="user-card">
-            <div class="user-avatar">{{ authStore.user?.username?.slice(0, 1).toUpperCase() || 'A' }}</div>
-            <div>
-              <div class="user-name">{{ authStore.user?.username }}</div>
-              <div class="user-role">系统管理员</div>
-            </div>
+
+        <div class="flex min-h-[64px] min-w-[220px] items-center gap-4 rounded-xl border border-gray-200 bg-white px-4 py-3 shadow-sm">
+          <div class="flex h-11 w-11 items-center justify-center rounded-full bg-[#2E3A59]/10 text-sm font-bold uppercase text-[#2E3A59]">
+            {{ authStore.user?.username?.slice(0, 1).toUpperCase() || 'A' }}
           </div>
-          <el-button class="logout-btn" @click="logout">退出登录</el-button>
+          <div class="min-w-0 flex-1">
+            <div class="truncate text-sm font-semibold text-slate-900">{{ authStore.user?.username }}</div>
+            <div class="mt-1 text-xs text-slate-500">系统管理员</div>
+          </div>
+          <button
+            type="button"
+            class="inline-flex min-h-[44px] items-center rounded-md border border-gray-200 px-4 py-2 text-sm font-medium text-slate-600 transition-colors duration-200 hover:bg-gray-50 hover:text-slate-900 focus:outline-none focus-visible:ring-2 focus-visible:ring-[#2E3A59]/30"
+            @click="logout"
+          >
+            退出登录
+          </button>
         </div>
       </header>
 
@@ -84,9 +91,7 @@ const logout = () => {
   min-height: 100vh;
   display: grid;
   grid-template-columns: var(--app-shell-sidebar-width) minmax(0, 1fr);
-  background:
-    radial-gradient(circle at top left, rgba(46, 58, 89, 0.12), transparent 24%),
-    linear-gradient(180deg, #f9fbfc 0%, #eef2f5 100%);
+  background: var(--color-sidebar);
 }
 .sidebar {
   display: flex;
@@ -169,58 +174,33 @@ const logout = () => {
   min-width: 0;
   display: flex;
   flex-direction: column;
+  background: #e5e9f0;
 }
 .topbar {
   display: flex;
-  align-items: center;
+  align-items: flex-start;
   justify-content: space-between;
-  gap: 20px;
-  padding: var(--app-shell-topbar-padding-top) var(--app-shell-gutter) var(--app-shell-topbar-padding-bottom);
+  gap: 24px;
+  padding: 24px 32px 0;
 }
 .topbar-label {
-  color: var(--color-primary);
+  color: rgba(46, 58, 89, 0.7);
   font-size: 12px;
-  font-weight: 700;
-  letter-spacing: 0.08em;
+  font-weight: 600;
+  letter-spacing: 0.24em;
   text-transform: uppercase;
 }
 .topbar-title {
-  margin-top: 8px;
-  font-size: clamp(28px, 3vw, 34px);
+  margin-top: 12px;
+  font-size: 30px;
   font-weight: 700;
-  line-height: 1.05;
+  line-height: 1.1;
   letter-spacing: -0.03em;
-  color: var(--color-text-primary);
-}
-.topbar-actions {
-  display: flex;
-  align-items: center;
-  gap: 12px;
-}
-.user-card {
-  padding: 10px 14px;
-  border-radius: 18px;
-  background: var(--app-surface-glass);
-  border: 1px solid rgba(46, 58, 89, 0.12);
-  box-shadow: 0 10px 30px rgba(26, 31, 59, 0.08);
-  backdrop-filter: blur(14px);
-}
-.user-name {
-  font-size: 14px;
-  font-weight: 700;
-  color: var(--color-text-primary);
-}
-.user-role {
-  margin-top: 4px;
-  color: var(--color-text-muted);
-  font-size: 12px;
-}
-.logout-btn {
-  border-radius: 12px;
+  color: #2e3a59;
 }
 .content-area {
   flex: 1;
-  padding: 0 var(--app-shell-gutter) var(--app-shell-gutter);
+  padding: 0 32px 32px;
 }
 .content-inner {
   min-height: 100%;
@@ -231,18 +211,14 @@ const logout = () => {
   }
   .topbar,
   .content-area {
-    padding-left: var(--app-shell-gutter-compact);
-    padding-right: var(--app-shell-gutter-compact);
+    padding-left: 20px;
+    padding-right: 20px;
   }
 }
 @media (max-width: 720px) {
   .topbar {
     flex-direction: column;
     align-items: flex-start;
-  }
-  .topbar-actions {
-    width: 100%;
-    justify-content: space-between;
   }
 }
 </style>
