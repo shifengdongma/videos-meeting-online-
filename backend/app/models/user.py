@@ -17,5 +17,6 @@ class User(Base):
     created_at: Mapped[datetime] = mapped_column(DateTime, default=datetime.utcnow, nullable=False)
 
     meetings = relationship("Meeting", back_populates="host")
+    meeting_templates = relationship("MeetingTemplate", back_populates="creator")
     live_streams = relationship("LiveStream", back_populates="host")
     vote_records = relationship("VoteRecord", back_populates="user")
