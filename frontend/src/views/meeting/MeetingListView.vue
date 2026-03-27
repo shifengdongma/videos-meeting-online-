@@ -1,24 +1,39 @@
 <template>
-  <div class="meeting-page app-page">
-    <PageHeader
-      eyebrow="Meeting center"
-      title="会议中心"
-      description="统一查看会议安排、当前状态与会议入口，支持主持人快速创建新的会议房间。"
-    >
-      <template #actions>
-        <el-button v-if="canCreate" type="primary" size="large" @click="dialogVisible = true">创建会议</el-button>
-      </template>
-    </PageHeader>
+  <div class="space-y-8">
+    <section class="flex items-start justify-between gap-6 rounded-xl bg-white/70 p-6 shadow-sm ring-1 ring-gray-100 backdrop-blur-sm">
+      <div class="max-w-3xl">
+        <div class="text-xs font-semibold uppercase tracking-[0.24em] text-[#2E3A59]/70">Meeting center</div>
+        <h1 class="mt-3 text-3xl font-bold tracking-tight text-[#2E3A59]">会议中心</h1>
+        <p class="mt-3 text-sm leading-7 text-slate-500">统一查看会议安排、当前状态与会议入口，支持主持人快速创建新的会议房间。</p>
+      </div>
+      <el-button v-if="canCreate" type="primary" size="large" @click="dialogVisible = true">创建会议</el-button>
+    </section>
 
-    <div class="summary-grid app-summary-grid" data-columns="4">
-      <SummaryCard label="全部会议" :value="meetings.length" description="当前系统内可访问的会议总数" tone="primary" />
-      <SummaryCard label="进行中" :value="ongoingCount" hint="实时进行" description="正在使用会议室的场次" tone="warning" />
-      <SummaryCard label="待开始" :value="scheduledCount" description="已排期、等待进入的会议" tone="success" />
-      <SummaryCard label="已结束" :value="endedCount" description="已完成的历史会议" tone="danger" />
-    </div>
+    <section class="grid grid-cols-4 gap-6">
+      <article class="rounded-xl border border-gray-100 bg-white/80 p-6 shadow-sm backdrop-blur-md transition-shadow hover:shadow-md">
+        <div class="text-sm font-medium text-slate-500">全部会议</div>
+        <div class="mt-4 text-4xl font-bold text-[#2E3A59]">{{ meetings.length }}</div>
+        <p class="mt-3 text-sm leading-6 text-slate-500">当前系统内可访问的会议总数</p>
+      </article>
+      <article class="rounded-xl border border-gray-100 bg-white/80 p-6 shadow-sm backdrop-blur-md transition-shadow hover:shadow-md">
+        <div class="text-sm font-medium text-slate-500">进行中</div>
+        <div class="mt-4 text-4xl font-bold text-[#FBC02D]">{{ ongoingCount }}</div>
+        <p class="mt-3 text-sm leading-6 text-slate-500">正在使用会议室的场次</p>
+      </article>
+      <article class="rounded-xl border border-gray-100 bg-white/80 p-6 shadow-sm backdrop-blur-md transition-shadow hover:shadow-md">
+        <div class="text-sm font-medium text-slate-500">待开始</div>
+        <div class="mt-4 text-4xl font-bold text-[#1E9E6F]">{{ scheduledCount }}</div>
+        <p class="mt-3 text-sm leading-6 text-slate-500">已排期、等待进入的会议</p>
+      </article>
+      <article class="rounded-xl border border-gray-100 bg-white/80 p-6 shadow-sm backdrop-blur-md transition-shadow hover:shadow-md">
+        <div class="text-sm font-medium text-slate-500">已结束</div>
+        <div class="mt-4 text-4xl font-bold text-[#E57373]">{{ endedCount }}</div>
+        <p class="mt-3 text-sm leading-6 text-slate-500">已完成的历史会议</p>
+      </article>
+    </section>
 
-    <el-card class="table-card app-table-card" shadow="never">
-      <el-table :data="meetings" v-loading="loading">
+    <section class="overflow-hidden rounded-xl bg-white shadow-sm">
+      <el-table :data="meetings" v-loading="loading" class="meeting-table">
         <el-table-column prop="title" label="主题" min-width="220" />
         <el-table-column prop="start_time" label="开始时间" min-width="180" />
         <el-table-column prop="end_time" label="结束时间" min-width="180" />
@@ -27,9 +42,9 @@
             <StatusTag :text="statusText(scope.row.status)" :status="scope.row.status" />
           </template>
         </el-table-column>
-        <el-table-column label="操作" width="160" fixed="right">
+        <el-table-column label="操作" width="168" fixed="right">
           <template #default="scope">
-            <el-button class="enter-button" type="primary" @click="openMeeting(scope.row.id)">进入会议室</el-button>
+            <button class="enter-button" type="button" @click="openMeeting(scope.row.id)">进入会议室</button>
           </template>
         </el-table-column>
       </el-table>
@@ -39,7 +54,7 @@
           <el-button v-if="canCreate" type="primary" @click="dialogVisible = true">创建会议</el-button>
         </template>
       </EmptyState>
-    </el-card>
+    </section>
 
     <el-dialog v-model="dialogVisible" title="创建会议" width="560px">
       <el-form label-width="90px" class="dialog-form">
@@ -66,10 +81,8 @@ import { computed, onMounted, reactive, ref } from 'vue'
 import { ElMessage } from 'element-plus'
 import { useRouter } from 'vue-router'
 
-import PageHeader from '../../components/layout/PageHeader.vue'
 import EmptyState from '../../components/ui/EmptyState.vue'
 import StatusTag from '../../components/ui/StatusTag.vue'
-import SummaryCard from '../../components/ui/SummaryCard.vue'
 import { createMeeting, fetchMeetings, type MeetingItem } from '../../api/meetings'
 import { useAuthStore } from '../../stores/auth'
 
@@ -122,10 +135,40 @@ onMounted(loadMeetings)
 .dialog-form {
   padding-top: 8px;
 }
+
 .time-picker {
   width: 100%;
 }
+
 .enter-button {
+  display: inline-flex;
+  min-height: 40px;
   min-width: 108px;
+  align-items: center;
+  justify-content: center;
+  border-radius: 6px;
+  background: #2E3A59;
+  padding: 8px 16px;
+  font-size: 14px;
+  font-weight: 500;
+  color: #fff;
+  transition: background-color 180ms ease;
+}
+
+.enter-button:hover {
+  background: #1a2133;
+}
+
+.enter-button:focus-visible {
+  outline: none;
+  box-shadow: 0 0 0 3px rgba(46, 58, 89, 0.18);
+}
+
+:deep(.meeting-table .el-table__row) {
+  transition: background-color 180ms ease;
+}
+
+:deep(.meeting-table .el-table__row:hover > td.el-table__cell) {
+  background: #f9fafb;
 }
 </style>
