@@ -1,31 +1,112 @@
 <template>
-  <AuthShell>
-    <el-card class="auth-card" shadow="never">
-      <div class="auth-content">
-        <div class="auth-eyebrow">Welcome back</div>
-        <h2>登录系统</h2>
-        <p class="auth-description">登录后可进入会议中心、直播控制台与后台权限管理。</p>
+  <div class="min-h-screen w-full flex font-inter">
+    <section class="hidden w-[55%] flex-col justify-between bg-gradient-to-br from-[#2E3A59] to-[#1a2133] px-16 py-14 text-white lg:flex">
+      <div class="space-y-6">
+        <div class="inline-flex w-fit items-center rounded-full border border-white/20 bg-white/10 px-4 py-2 text-xs font-semibold uppercase tracking-[0.24em] text-white/80 backdrop-blur-md">
+          Enterprise Video
+        </div>
+        <div class="max-w-2xl space-y-5">
+          <h1 class="text-5xl font-semibold leading-tight tracking-[-0.04em]">
+            视频会议管理系统
+          </h1>
+          <p class="max-w-xl text-base leading-8 text-white/72 xl:text-lg">
+            面向会议、直播和在线表决的统一协作平台，让管理员、主持人和参会成员在同一套产品体验中完成日常业务。
+          </p>
+        </div>
+      </div>
 
-        <el-form class="auth-form" @submit.prevent="handleSubmit">
-          <el-form-item label="用户名">
-            <el-input v-model="form.username" size="large" placeholder="请输入用户名" />
+      <div class="space-y-5">
+        <div class="rounded-xl border border-white/20 bg-white/10 p-6 backdrop-blur-md transition-transform hover:-translate-y-1">
+          <div class="mb-4 flex h-12 w-12 items-center justify-center rounded-xl bg-white/15 text-white">
+            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.8" stroke="currentColor" class="h-6 w-6">
+              <path stroke-linecap="round" stroke-linejoin="round" d="M3.75 9h16.5m-16.5 6.75h16.5M5.25 4.5h13.5A1.5 1.5 0 0 1 20.25 6v12a1.5 1.5 0 0 1-1.5 1.5H5.25a1.5 1.5 0 0 1-1.5-1.5V6a1.5 1.5 0 0 1 1.5-1.5Z" />
+            </svg>
+          </div>
+          <div class="space-y-2">
+            <h3 class="text-xl font-semibold">稳定会议</h3>
+            <p class="text-sm leading-7 text-white/72">
+              统一管理会议预约、状态流转与会议入口，确保日常协作稳定可控。
+            </p>
+          </div>
+        </div>
+
+        <div class="rounded-xl border border-white/20 bg-white/10 p-6 backdrop-blur-md transition-transform hover:-translate-y-1">
+          <div class="mb-4 flex h-12 w-12 items-center justify-center rounded-xl bg-white/15 text-white">
+            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.8" stroke="currentColor" class="h-6 w-6">
+              <path stroke-linecap="round" stroke-linejoin="round" d="M15.75 10.5V6.75a3.75 3.75 0 1 0-7.5 0v6m10.5 0a2.25 2.25 0 0 1 2.25 2.25v3a2.25 2.25 0 0 1-2.25 2.25h-13.5A2.25 2.25 0 0 1 3 18v-3a2.25 2.25 0 0 1 2.25-2.25m13.5 0h-13.5" />
+            </svg>
+          </div>
+          <div class="space-y-2">
+            <h3 class="text-xl font-semibold">实时音视频</h3>
+            <p class="text-sm leading-7 text-white/72">
+              支持本地音视频与桌面共享，帮助主持人与成员快速进入高效协同状态。
+            </p>
+          </div>
+        </div>
+
+        <div class="rounded-xl border border-white/20 bg-white/10 p-6 backdrop-blur-md transition-transform hover:-translate-y-1">
+          <div class="mb-4 flex h-12 w-12 items-center justify-center rounded-xl bg-white/15 text-white">
+            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.8" stroke="currentColor" class="h-6 w-6">
+              <path stroke-linecap="round" stroke-linejoin="round" d="M10.5 6h9.75M10.5 12h9.75M10.5 18h9.75M3.75 6h.008v.008H3.75V6Zm0 6h.008v.008H3.75V12Zm0 6h.008v.008H3.75V18Z" />
+            </svg>
+          </div>
+          <div class="space-y-2">
+            <h3 class="text-xl font-semibold">在线表决</h3>
+            <p class="text-sm leading-7 text-white/72">
+              提供会议投票与结果反馈能力，让关键议题在线完成决策闭环。
+            </p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="flex w-full items-center justify-center bg-[#F4F6F8] px-6 py-10 lg:w-[45%] lg:px-10">
+      <div class="w-full max-w-[520px] rounded-2xl border border-white/50 bg-white/70 p-8 shadow-[0_4px_24px_rgba(0,0,0,0.05)] backdrop-blur-xl sm:p-10">
+        <div class="space-y-3">
+          <div class="text-xs font-semibold uppercase tracking-[0.22em] text-[#2E3A59]">Welcome back</div>
+          <h2 class="text-3xl font-semibold tracking-[-0.03em] text-slate-900 sm:text-4xl">登录系统</h2>
+          <p class="text-sm leading-7 text-slate-600 sm:text-base">
+            登录后可进入会议中心、直播控制台与后台权限管理。
+          </p>
+        </div>
+
+        <el-form class="mt-8" @submit.prevent="handleSubmit">
+          <el-form-item label="用户名" class="mb-5">
+            <el-input
+              v-model="form.username"
+              size="large"
+              placeholder="请输入用户名"
+              class="tailwind-auth-input"
+            />
           </el-form-item>
-          <el-form-item label="密码">
-            <el-input v-model="form.password" type="password" show-password size="large" placeholder="请输入密码" />
+          <el-form-item label="密码" class="mb-5">
+            <el-input
+              v-model="form.password"
+              type="password"
+              show-password
+              size="large"
+              placeholder="请输入密码"
+              class="tailwind-auth-input"
+            />
           </el-form-item>
 
-          <el-button class="submit-btn" type="primary" size="large" @click="handleSubmit">
+          <el-button
+            class="mt-3 h-[52px] w-full rounded-lg border-0 bg-[#2E3A59] py-3 text-base font-medium text-white transition-all hover:bg-[#1a2133] hover:shadow-lg active:scale-95"
+            type="primary"
+            size="large"
+            @click="handleSubmit"
+          >
             登录进入系统
           </el-button>
 
-          <div class="auth-footer">
+          <div class="mt-6 flex items-center justify-center gap-2 text-sm text-slate-500">
             <span>还没有账号？</span>
-            <el-button link type="primary" @click="router.push('/register')">立即注册</el-button>
+            <el-button link type="primary" class="!text-[#2E3A59]" @click="router.push('/register')">立即注册</el-button>
           </div>
         </el-form>
       </div>
-    </el-card>
-  </AuthShell>
+    </section>
+  </div>
 </template>
 
 <script setup lang="ts">
@@ -52,73 +133,40 @@ const handleSubmit = async () => {
 </script>
 
 <style scoped>
-.auth-card {
-  width: min(488px, 100%);
-  border: 1px solid rgba(46, 58, 89, 0.12);
-  border-radius: 32px;
-  background: linear-gradient(180deg, rgba(255, 255, 255, 0.84) 0%, rgba(255, 255, 255, 0.72) 100%);
-  backdrop-filter: blur(22px);
-  box-shadow:
-    0 24px 56px rgba(26, 31, 59, 0.14),
-    0 34px 78px rgba(46, 58, 89, 0.12);
+:deep(.el-form-item) {
+  display: block;
 }
-.auth-content {
-  padding: 20px;
-}
-.auth-eyebrow {
-  color: var(--color-primary);
-  font-size: 12px;
-  font-weight: 700;
-  letter-spacing: 0.1em;
-  text-transform: uppercase;
-}
-.auth-content h2 {
-  margin: 14px 0 0;
-  font-size: clamp(30px, 4vw, 36px);
-  line-height: 1.02;
-  letter-spacing: -0.04em;
-  color: var(--color-text-primary);
-}
-.auth-description {
-  margin: 14px 0 0;
-  color: var(--color-text-muted);
-  line-height: 1.8;
-}
-.auth-form {
-  margin-top: 28px;
-}
-:deep(.auth-form .el-form-item) {
-  margin-bottom: 20px;
-}
-:deep(.auth-form .el-form-item__label) {
-  padding-bottom: 8px;
-  color: var(--color-text-secondary);
-  font-size: 13px;
-  font-weight: 700;
-}
-.submit-btn {
-  width: 100%;
-  margin-top: 10px;
-  height: 52px;
-  border: none;
-  border-radius: 16px;
-  background: linear-gradient(135deg, var(--color-primary) 0%, var(--color-primary-hover) 100%);
-  box-shadow:
-    0 18px 34px rgba(46, 58, 89, 0.22),
-    0 8px 20px rgba(46, 58, 89, 0.14);
-}
-.submit-btn:hover {
-  box-shadow:
-    0 22px 38px rgba(46, 58, 89, 0.28),
-    0 10px 22px rgba(46, 58, 89, 0.16);
-}
-.auth-footer {
-  margin-top: 22px;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  gap: 6px;
-  color: var(--color-text-muted);
+
+:deep(.el-form-item__label) {
+  margin-bottom: 8px;
+  padding: 0;
+  color: #334155;
   font-size: 14px;
+  font-weight: 600;
+  line-height: 1.5;
+}
+
+:deep(.tailwind-auth-input .el-input__wrapper) {
+  border-radius: 0.5rem;
+  background-color: rgb(249 250 251);
+  box-shadow: inset 0 2px 6px rgba(15, 23, 42, 0.08);
+  padding: 0 1rem;
+  min-height: 50px;
+  transition: all 0.2s ease;
+}
+
+:deep(.tailwind-auth-input .el-input__wrapper.is-focus) {
+  box-shadow:
+    inset 0 2px 6px rgba(15, 23, 42, 0.08),
+    0 0 0 2px rgba(46, 58, 89, 0.5);
+}
+
+:deep(.tailwind-auth-input .el-input__inner) {
+  color: #0f172a;
+}
+
+:deep(.el-button.submit-btn),
+:deep(.el-button--primary) {
+  box-shadow: none;
 }
 </style>
