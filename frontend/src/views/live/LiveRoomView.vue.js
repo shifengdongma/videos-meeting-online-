@@ -73,7 +73,7 @@ const handleSignalMessage = async (raw) => {
     }
 };
 onMounted(() => {
-    wsClient.connect(`ws://127.0.0.1:8001/ws/live/${liveId}`, handleSignalMessage);
+    wsClient.connect(`ws://218.78.28.69:8001/ws/live/${liveId}`, handleSignalMessage);
     setTimeout(() => wsClient.send({ type: 'join', from: selfId }), 300);
 });
 onBeforeUnmount(() => {

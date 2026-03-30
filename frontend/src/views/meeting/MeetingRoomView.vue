@@ -126,6 +126,14 @@ const setVideoStream = (el: HTMLVideoElement | null, stream: MediaStream | null)
   if (el) el.srcObject = stream
 }
 
+const checkMediaDevices = (): boolean => {
+  if (!navigator.mediaDevices || !navigator.mediaDevices.getUserMedia) {
+    ElMessage.error('摄像头/麦克风不可用：请使用 HTTPS 或 localhost 访问')
+    return false
+  }
+  return true
+}
+
 const addStreamToPeers = (stream: MediaStream) => {
   peerConnections.forEach((pc) => {
     const senderTrackIds = new Set(pc.getSenders().map((sender) => sender.track?.id).filter(Boolean))
@@ -216,24 +224,38 @@ const stopScreenShare = () => {
 
 const openCamera = async () => {
   if (localStream.value) return
-  localStream.value = await navigator.mediaDevices.getUserMedia({ video: true, audio: true })
-  setVideoStream(localVideoRef.value, localStream.value)
-  addStreamToPeers(localStream.value)
-  ElMessage.success('已打开摄像头和麦克风')
+  if (!checkMediaDevices()) return
+
+  try {
+    localStream.value = await navigator.mediaDevices.getUserMedia({ video: true, audio: true })
+    setVideoStream(localVideoRef.value, localStream.value)
+    addStreamToPeers(localStream.value)
+    ElMessage.success('已打开摄像头和麦克风')
+  } catch (error) {
+    console.error('Failed to access camera/microphone:', error)
+    ElMessage.error('无法访问摄像头或麦克风，请检查权限设置')
+  }
 }
 
 const shareScreen = async () => {
   if (screenStream.value) return
-  screenStream.value = await navigator.mediaDevices.getDisplayMedia({ video: true })
-  const [screenTrack] = screenStream.value.getVideoTracks()
-  if (screenTrack) {
-    screenTrack.onended = () => {
-      stopScreenShare()
+  if (!checkMediaDevices()) return
+
+  try {
+    screenStream.value = await navigator.mediaDevices.getDisplayMedia({ video: true })
+    const [screenTrack] = screenStream.value.getVideoTracks()
+    if (screenTrack) {
+      screenTrack.onended = () => {
+        stopScreenShare()
+      }
     }
+    setVideoStream(screenVideoRef.value, screenStream.value)
+    addStreamToPeers(screenStream.value)
+    ElMessage.success('已开启桌面共享')
+  } catch (error) {
+    console.error('Failed to share screen:', error)
+    ElMessage.error('无法开启屏幕共享，请检查权限设置')
   }
-  setVideoStream(screenVideoRef.value, screenStream.value)
-  addStreamToPeers(screenStream.value)
-  ElMessage.success('已开启桌面共享')
 }
 
 const toggleCamera = async () => {
@@ -294,9 +316,9 @@ const handleSignalMessage = async (raw: MessageEvent<string>) => {
   }
 }
 
-const connectRoom = () => {
-  wsClient.connect(`ws://127.0.0.1:8001/ws/meetings/${meetingId}`, handleSignalMessage)
-  setTimeout(() => wsClient.send({ type: 'join', from: selfId }), 300)
+const connectRoom = async () => {
+  await wsClient.connect(`ws://218.78.28.69:8001/ws/meetings/${meetingId}`, handleSignalMessage)
+  wsClient.send({ type: 'join', from: selfId })
 }
 
 const loadVotes = async () => {

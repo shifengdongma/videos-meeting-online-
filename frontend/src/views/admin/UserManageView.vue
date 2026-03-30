@@ -1,13 +1,6 @@
 <template>
-  <div class="space-y-8">
-    <section class="flex items-start justify-between gap-6 rounded-xl bg-white/70 p-6 shadow-sm ring-1 ring-gray-100 backdrop-blur-sm">
-      <div class="max-w-3xl">
-        <div class="text-xs font-semibold uppercase tracking-[0.24em] text-[#2E3A59]/70">Access control</div>
-        <h1 class="mt-3 text-3xl font-bold tracking-tight text-[#2E3A59]">管理后台</h1>
-        <p class="mt-3 text-sm leading-7 text-slate-500">集中维护账号角色与权限分配，帮助管理员快速识别当前系统中的角色结构。</p>
-      </div>
-    </section>
-
+  <div class="space-y-8 pt-4">
+    
     <section class="grid grid-cols-4 gap-6">
       <article class="rounded-xl border border-gray-100 bg-white/80 p-6 shadow-sm backdrop-blur-md transition-shadow hover:shadow-md">
         <div class="text-sm font-medium text-slate-500">用户总数</div>

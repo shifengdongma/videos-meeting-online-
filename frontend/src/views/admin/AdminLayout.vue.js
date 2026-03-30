@@ -31,12 +31,6 @@ let __VLS_directives;
 __VLS_asFunctionalElement(__VLS_intrinsicElements.div, __VLS_intrinsicElements.div)({
     ...{ class: "admin-shell" },
 });
-__VLS_asFunctionalElement(__VLS_intrinsicElements.div, __VLS_intrinsicElements.div)({
-    ...{ class: "shell-glow shell-glow-a" },
-});
-__VLS_asFunctionalElement(__VLS_intrinsicElements.div, __VLS_intrinsicElements.div)({
-    ...{ class: "shell-glow shell-glow-b" },
-});
 __VLS_asFunctionalElement(__VLS_intrinsicElements.aside, __VLS_intrinsicElements.aside)({
     ...{ class: "sidebar" },
 });
@@ -165,10 +159,6 @@ const __VLS_16 = {}.RouterView;
 const __VLS_17 = __VLS_asFunctionalComponent(__VLS_16, new __VLS_16({}));
 const __VLS_18 = __VLS_17({}, ...__VLS_functionalComponentArgsRest(__VLS_17));
 /** @type {__VLS_StyleScopedClasses['admin-shell']} */ ;
-/** @type {__VLS_StyleScopedClasses['shell-glow']} */ ;
-/** @type {__VLS_StyleScopedClasses['shell-glow-a']} */ ;
-/** @type {__VLS_StyleScopedClasses['shell-glow']} */ ;
-/** @type {__VLS_StyleScopedClasses['shell-glow-b']} */ ;
 /** @type {__VLS_StyleScopedClasses['sidebar']} */ ;
 /** @type {__VLS_StyleScopedClasses['sidebar-inner']} */ ;
 /** @type {__VLS_StyleScopedClasses['brand-block']} */ ;

@@ -1,0 +1,67 @@
+方案二：使用 Nginx 统一代理（强烈推荐，正规全栈架构）
+既然您是在云服务器上部署一个完整的 Vue + FastAPI 系统，最标准的做法是摒弃 Python 的 http.server，改用 Nginx。
+
+通过 Nginx 作为一个“反向代理网关”，让前端和后端共享同一个端口（比如 80 端口）。这样，前端只需要请求相对路径 /api，ngrok 穿透 Nginx 后，前后端就自动都变成 HTTPS 了。
+
+第一步：修改前端代码（非常关键）
+回到您的前端 Vue 项目源码中，找到配置 API 基础地址的地方（通常在 .env.production 文件，或者配置 Axios baseURL 的地方）。
+将原来的绝对地址：
+http://218.78.28.69:8001/api
+修改为相对地址：
+/api
+(修改后，请在本地重新执行 npm run build，把新的 dist 目录传到服务器)
+
+第二步：在 CentOS 上安装并配置 Nginx
+安装 Nginx：
+
+Bash
+yum install epel-release -y
+yum install nginx -y
+编辑 Nginx 配置文件：
+
+Bash
+vi /etc/nginx/nginx.conf
+在 http { ... } 块中，找到默认的 server { ... }，将其修改（或替换）为以下内容：
+
+Nginx
+server {
+    listen 80;
+    server_name localhost;
+
+    # 1. 代理前端静态文件
+    location / {
+        # 这里填入您实际的前端 dist 绝对路径
+        root /www/videos-meeting/frontend/dist; 
+        index index.html;
+        # 解决 Vue Router 在 History 模式下刷新 404 的问题
+        try_files $uri $uri/ /index.html; 
+    }
+
+    # 2. 代理后端 API 请求
+    location /api/ {
+        # 将所有以 /api/ 开头的请求转发给本机的 8001 端口
+        proxy_pass http://127.0.0.1:8001/; 
+        proxy_set_header Host $host;
+        proxy_set_header X-Real-IP $remote_addr;
+        proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
+    }
+}
+保存退出并启动 Nginx：
+
+Bash
+systemctl restart nginx
+systemctl enable nginx
+第三步：调整您的运行方式
+现在，架构已经从“跑两个服务”变成了“Nginx 统一接管”。
+
+您只需要在服务器上启动后端：
+
+Bash
+cd /www/videos-meeting/backend
+source venv/bin/activate
+python -m uvicorn app.main:app --host 127.0.0.1 --port 8001
+启动 ngrok 穿透 Nginx 的 80 端口：
+
+Bash
+ngrok http 80
+大功告成！ 现在通过 ngrok 的 HTTPS 链接访问，前端代码会自动向 https://您的ngrok域名/api/... 发送请求，Nginx 会在服务器内部默默把这个请求转给后端的 8001 端口。这样既彻底消灭了 Mixed Content 报错，又完美避开了浏览器的跨域 (CORS) 限制！

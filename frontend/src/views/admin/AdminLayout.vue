@@ -1,7 +1,5 @@
 <template>
   <div class="admin-shell">
-    <div class="shell-glow shell-glow-a"></div>
-    <div class="shell-glow shell-glow-b"></div>
 
     <aside class="sidebar">
       <div class="sidebar-inner">
