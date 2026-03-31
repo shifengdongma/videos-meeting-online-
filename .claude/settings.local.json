@@ -41,7 +41,21 @@
       "Bash(yum install -y python3-devel)",
       "Bash(pip install greenlet --only-binary :all:)",
       "Bash(chmod +x /www/videos-meeting/start.sh)",
-      "Bash(npx tsc --noEmit)"
+      "Bash(npx tsc --noEmit)",
+      "Bash(nginx -t)",
+      "Bash(netstat -tlnp)",
+      "Bash(ss -tlnp)",
+      "Bash(ls -la /www/videos-meeting/frontend/.env*)",
+      "Bash(curl -s http://127.0.0.1:8001/api/health)",
+      "Bash(curl -s http://127.0.0.1:8001/)",
+      "Bash(curl -s http://127.0.0.1/)",
+      "Bash(nginx -s reload)",
+      "Bash(chmod 644 /www/server/panel/vhost/nginx/videos-meeting.conf)",
+      "Bash(namei -l /www/videos-meeting/frontend/dist/index.html)",
+      "Bash(su - www -s /bin/bash -c \"cat /www/videos-meeting/frontend/dist/index.html\")",
+      "Bash(ls -la /www/videos-meeting/backend/*.env*)",
+      "Bash(ls -la /www/videos-meeting/backend/.env*)",
+      "Bash(bash -n /www/videos-meeting/start.sh)"
     ]
   }
 }

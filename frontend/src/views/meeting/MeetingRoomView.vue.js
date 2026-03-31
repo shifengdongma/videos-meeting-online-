@@ -200,7 +200,8 @@ const handleSignalMessage = async (raw) => {
     }
 };
 const connectRoom = async () => {
-    await wsClient.connect(`ws://218.78.28.69:8001/ws/meetings/${meetingId}`, handleSignalMessage);
+    const wsProtocol = window.location.protocol === 'https:' ? 'wss:' : 'ws:';
+    await wsClient.connect(`${wsProtocol}//${window.location.host}/ws/meetings/${meetingId}`, handleSignalMessage);
     wsClient.send({ type: 'join', from: selfId });
 };
 const loadVotes = async () => {

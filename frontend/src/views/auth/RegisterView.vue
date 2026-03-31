@@ -2,8 +2,9 @@
   <div class="min-h-screen w-full flex font-inter">
     <section class="hidden w-[55%] flex-col justify-between bg-gradient-to-br from-[#2E3A59] to-[#1a2133] px-16 py-14 text-white lg:flex">
       <div class="space-y-6">
-        <div class="inline-flex w-fit items-center rounded-full border border-white/20 bg-white/10 px-4 py-2 text-xs font-semibold uppercase tracking-[0.24em] text-white/80 backdrop-blur-md">
-          Enterprise Video
+        <div class="inline-flex w-fit items-center rounded-full border border-white/20 bg-white/10 px-4 py-2 text-xs font-semibold tracking-[0.24em] text-white/80 backdrop-blur-md">
+          <img src="../../assets/logo.png" alt="logo" class="mr-2 h-4 w-4 object-contain" />
+          新国脉数字文化股份有限公司
         </div>
         <div class="max-w-2xl space-y-5">
           <h1 class="text-5xl font-semibold leading-tight tracking-[-0.04em]">

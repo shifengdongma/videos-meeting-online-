@@ -141,7 +141,8 @@ const handleSignalMessage = async (raw: MessageEvent<string>) => {
 }
 
 onMounted(() => {
-  wsClient.connect(`ws://218.78.28.69:8001/ws/live/${liveId}`, handleSignalMessage)
+  const wsProtocol = window.location.protocol === 'https:' ? 'wss:' : 'ws:'
+  wsClient.connect(`${wsProtocol}//${window.location.host}/ws/live/${liveId}`, handleSignalMessage)
   setTimeout(() => wsClient.send({ type: 'join', from: selfId }), 300)
 })
 
