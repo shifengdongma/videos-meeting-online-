@@ -1,7 +1,7 @@
 <template>
   <div class="room-control-bar">
     <!-- Invite Dialog -->
-    <el-dialog v-model="showInviteDialog" title="邀请成员" width="400px">
+    <el-dialog v-model="showInviteDialog" title="邀请成员" width="400px" append-to-body :z-index="2000">
       <div class="invite-content">
         <div class="invite-section">
           <div class="invite-label">房间链接</div>
@@ -30,7 +30,7 @@
     </el-dialog>
 
     <!-- Exit Confirmation Dialog -->
-    <el-dialog v-model="showExitDialog" title="确认退出" width="360px">
+    <el-dialog v-model="showExitDialog" title="确认退出" width="360px" append-to-body :z-index="2000">
       <p class="exit-warning">确定要离开房间吗？这将关闭所有连接并释放媒体设备。</p>
       <template #footer>
         <el-button @click="showExitDialog = false">取消</el-button>

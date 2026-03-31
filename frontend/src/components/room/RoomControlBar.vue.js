@@ -88,11 +88,15 @@ const __VLS_1 = __VLS_asFunctionalComponent(__VLS_0, new __VLS_0({
     modelValue: (__VLS_ctx.showInviteDialog),
     title: "邀请成员",
     width: "400px",
+    appendToBody: true,
+    zIndex: (2000),
 }));
 const __VLS_2 = __VLS_1({
     modelValue: (__VLS_ctx.showInviteDialog),
     title: "邀请成员",
     width: "400px",
+    appendToBody: true,
+    zIndex: (2000),
 }, ...__VLS_functionalComponentArgsRest(__VLS_1));
 __VLS_3.slots.default;
 __VLS_asFunctionalElement(__VLS_intrinsicElements.div, __VLS_intrinsicElements.div)({
@@ -216,11 +220,15 @@ const __VLS_37 = __VLS_asFunctionalComponent(__VLS_36, new __VLS_36({
     modelValue: (__VLS_ctx.showExitDialog),
     title: "确认退出",
     width: "360px",
+    appendToBody: true,
+    zIndex: (2000),
 }));
 const __VLS_38 = __VLS_37({
     modelValue: (__VLS_ctx.showExitDialog),
     title: "确认退出",
     width: "360px",
+    appendToBody: true,
+    zIndex: (2000),
 }, ...__VLS_functionalComponentArgsRest(__VLS_37));
 __VLS_39.slots.default;
 __VLS_asFunctionalElement(__VLS_intrinsicElements.p, __VLS_intrinsicElements.p)({
