@@ -11,3 +11,7 @@ export const submitVote = async (voteId, option_id) => {
     const { data } = await api.post(`/votes/${voteId}/submit`, { option_id });
     return data;
 };
+export const endVote = async (voteId) => {
+    const { data } = await api.put(`/votes/${voteId}/end`);
+    return data;
+};

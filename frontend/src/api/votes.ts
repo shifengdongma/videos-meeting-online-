@@ -16,6 +16,8 @@ export interface VoteItem {
   id: number
   meeting_id: number
   topic: string
+  created_at: string
+  status: 'voting' | 'ended'
   options: VoteOption[]
   submitted: boolean
   results: VoteResultOption[]
@@ -33,5 +35,10 @@ export const createVote = async (payload: { meeting_id: number; topic: string; o
 
 export const submitVote = async (voteId: number, option_id: number) => {
   const { data } = await api.post<{ options: VoteResultOption[] }>(`/votes/${voteId}/submit`, { option_id })
+  return data
+}
+
+export const endVote = async (voteId: number) => {
+  const { data } = await api.put<VoteItem>(`/votes/${voteId}/end`)
   return data
 }

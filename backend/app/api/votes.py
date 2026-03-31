@@ -4,7 +4,7 @@ from fastapi import APIRouter, Depends, HTTPException, status
 from sqlalchemy.orm import Session, joinedload
 
 from app.db.session import get_db
-from app.models.enums import RoleEnum
+from app.models.enums import RoleEnum, VoteStatus
 from app.models.meeting import Meeting
 from app.models.user import User
 from app.models.vote import Vote, VoteOption, VoteRecord
@@ -43,6 +43,8 @@ def build_vote_response(vote: Vote, user_id: int | None = None) -> dict:
         "id": vote.id,
         "meeting_id": vote.meeting_id,
         "topic": vote.topic,
+        "created_at": vote.created_at.isoformat() if vote.created_at else None,
+        "status": vote.status.value if vote.status else "voting",
         "options": [{"id": option.id, "content": option.content} for option in vote.options],
         "submitted": submitted,
         "results": result["options"],
@@ -127,3 +129,35 @@ async def submit_vote(
     result = build_vote_result(vote)
     await manager.broadcast_meeting(vote.meeting_id, result)
     return result
+
+
+@router.put("/{vote_id}/end")
+async def end_vote(
+    vote_id: int,
+    current_user: User = Depends(require_roles(RoleEnum.admin, RoleEnum.host)),
+    db: Session = Depends(get_db),
+):
+    vote = (
+        db.query(Vote)
+        .options(joinedload(Vote.options), joinedload(Vote.records))
+        .filter(Vote.id == vote_id)
+        .first()
+    )
+    if not vote:
+        raise HTTPException(status_code=status.HTTP_404_NOT_FOUND, detail="投票不存在")
+
+    if vote.status == VoteStatus.ended:
+        raise HTTPException(status_code=status.HTTP_400_BAD_REQUEST, detail="表决已结束")
+
+    vote.status = VoteStatus.ended
+    db.commit()
+    db.refresh(vote)
+
+    result = build_vote_result(vote)
+    await manager.broadcast_meeting(vote.meeting_id, {
+        "type": "vote-ended",
+        "voteId": vote.id,
+        "status": "ended",
+        "results": result["options"],
+    })
+    return build_vote_response(vote, current_user.id)

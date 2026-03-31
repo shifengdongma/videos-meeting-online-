@@ -5,8 +5,8 @@
         <div class="panel-eyebrow">Meeting vote</div>
         <h3>会议投票</h3>
       </div>
-      <div class="panel-status" :class="{ active: !!activeVote }">
-        {{ activeVote ? '进行中' : '待开始' }}
+      <div class="panel-status" :class="{ active: !!activeVote, ended: activeVote?.status === 'ended' }">
+        {{ statusLabel }}
       </div>
     </div>
 
@@ -14,10 +14,26 @@
       <div class="topic-card">
         <div class="topic-label">当前议题</div>
         <p class="topic">{{ activeVote.topic }}</p>
+        <div class="vote-meta">
+          <span class="meta-item">
+            <span class="meta-label">发起时间：</span>
+            <span class="meta-value">{{ formatDateTime(activeVote.created_at) }}</span>
+          </span>
+          <span class="meta-item">
+            <span class="meta-label">状态：</span>
+            <span class="meta-value status-tag" :class="activeVote.status">
+              {{ activeVote.status === 'voting' ? '投票中' : '已结束' }}
+            </span>
+          </span>
+        </div>
       </div>
 
       <div v-if="submitted && results.length" class="submitted-tip">
         当前议题你已投票，直接展示实时结果。
+      </div>
+
+      <div v-else-if="activeVote.status === 'ended'" class="ended-tip">
+        此表决已结束，以下为最终结果。
       </div>
 
       <div v-else class="option-list">
@@ -31,6 +47,10 @@
           {{ option.content }}
         </el-button>
       </div>
+
+      <div v-if="canEndVote" class="action-bar">
+        <el-button type="warning" @click="emit('end')">结束表决</el-button>
+      </div>
     </div>
 
     <div v-else class="empty-wrap">
@@ -38,19 +58,25 @@
     </div>
 
     <div v-if="results.length" class="results-card">
-      <div class="results-title">实时结果</div>
+      <div class="results-title">{{ activeVote?.status === 'ended' ? '最终结果' : '实时结果' }}</div>
       <div v-for="item in results" :key="item.id" class="result-item">
         <div class="result-line">
           <span>{{ item.content }}</span>
           <span>{{ item.count }} 票 ({{ Math.round(item.ratio * 100) }}%)</span>
         </div>
-        <el-progress :percentage="Math.round(item.ratio * 100)" :stroke-width="10" />
+        <el-progress
+          :percentage="Math.round(item.ratio * 100)"
+          :stroke-width="12"
+          :color="getProgressColor(item.ratio)"
+        />
       </div>
     </div>
   </div>
 </template>
 
 <script setup lang="ts">
+import { computed } from 'vue'
+
 interface VoteResultItem {
   id: number
   content: string
@@ -58,15 +84,43 @@ interface VoteResultItem {
   ratio: number
 }
 
-defineProps<{
-  activeVote: { id: number; topic: string; options: Array<{ id: number; content: string }> } | null
+interface ActiveVote {
+  id: number
+  topic: string
+  created_at: string
+  status: 'voting' | 'ended'
+  options: Array<{ id: number; content: string }>
+}
+
+const props = defineProps<{
+  activeVote: ActiveVote | null
   results: VoteResultItem[]
   submitted: boolean
+  canEndVote?: boolean
 }>()
 
 const emit = defineEmits<{
   submit: [optionId: number]
+  end: []
 }>()
+
+const statusLabel = computed(() => {
+  if (!props.activeVote) return '待开始'
+  if (props.activeVote.status === 'ended') return '已结束'
+  return '进行中'
+})
+
+const formatDateTime = (datetime: string) => {
+  if (!datetime) return ''
+  const d = new Date(datetime)
+  return `${String(d.getHours()).padStart(2, '0')}:${String(d.getMinutes()).padStart(2, '0')}`
+}
+
+const getProgressColor = (ratio: number) => {
+  if (ratio >= 0.5) return '#22c55e'
+  if (ratio >= 0.3) return '#3b82f6'
+  return '#6b7280'
+}
 </script>
 
 <style scoped>
@@ -108,6 +162,10 @@ const emit = defineEmits<{
   background: rgba(251, 192, 45, 0.18);
   color: #a26c00;
 }
+.panel-status.ended {
+  background: rgba(107, 114, 128, 0.15);
+  color: #6b7280;
+}
 .vote-body {
   margin-top: 20px;
 }
@@ -127,6 +185,38 @@ const emit = defineEmits<{
   font-weight: 700;
   color: var(--color-text-primary);
 }
+.vote-meta {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 16px;
+  margin-top: 12px;
+}
+.meta-item {
+  display: flex;
+  gap: 4px;
+  font-size: 13px;
+}
+.meta-label {
+  color: var(--color-text-muted);
+}
+.meta-value {
+  color: var(--color-text-primary);
+  font-weight: 500;
+}
+.status-tag {
+  padding: 2px 8px;
+  border-radius: 999px;
+  font-size: 12px;
+  font-weight: 600;
+}
+.status-tag.voting {
+  background: rgba(34, 197, 94, 0.15);
+  color: #22c55e;
+}
+.status-tag.ended {
+  background: rgba(107, 114, 128, 0.15);
+  color: #6b7280;
+}
 .option-list {
   margin-top: 18px;
   display: grid;
@@ -143,6 +233,17 @@ const emit = defineEmits<{
   color: #157554;
   font-size: 13px;
   font-weight: 600;
+}
+.ended-tip {
+  margin-top: 14px;
+  color: #6b7280;
+  font-size: 13px;
+  font-weight: 600;
+}
+.action-bar {
+  margin-top: 16px;
+  display: flex;
+  justify-content: flex-end;
 }
 .empty-wrap {
   margin-top: 16px;
@@ -171,9 +272,10 @@ const emit = defineEmits<{
 }
 :deep(.el-progress-bar__outer) {
   background: rgba(46, 58, 89, 0.12);
+  border-radius: 6px;
 }
 :deep(.el-progress-bar__inner) {
   transition: width 0.5s ease;
-  background: linear-gradient(90deg, var(--color-primary) 0%, var(--color-success) 100%);
+  border-radius: 6px;
 }
 </style>

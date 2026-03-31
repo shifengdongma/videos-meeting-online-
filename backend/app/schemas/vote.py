@@ -1,4 +1,8 @@
+from datetime import datetime
+
 from pydantic import BaseModel, ConfigDict, Field
+
+from app.models.enums import VoteStatus
 
 
 class VoteOptionCreate(BaseModel):
@@ -35,6 +39,8 @@ class VoteResponse(BaseModel):
     id: int
     meeting_id: int
     topic: str
+    created_at: datetime
+    status: VoteStatus
     options: list[VoteOptionResponse]
     submitted: bool = False
     results: list[VoteResultOptionResponse] = []

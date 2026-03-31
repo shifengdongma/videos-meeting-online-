@@ -1,7 +1,10 @@
-from sqlalchemy import ForeignKey, Integer, String, UniqueConstraint
+from datetime import datetime
+
+from sqlalchemy import DateTime, Enum, ForeignKey, Integer, String, UniqueConstraint
 from sqlalchemy.orm import Mapped, mapped_column, relationship
 
 from app.db.base import Base
+from app.models.enums import VoteStatus
 
 
 class Vote(Base):
@@ -10,6 +13,8 @@ class Vote(Base):
     id: Mapped[int] = mapped_column(Integer, primary_key=True, index=True)
     meeting_id: Mapped[int] = mapped_column(ForeignKey("meetings.id"), nullable=False)
     topic: Mapped[str] = mapped_column(String(255), nullable=False)
+    created_at: Mapped[datetime] = mapped_column(DateTime, default=datetime.utcnow, nullable=False)
+    status: Mapped[VoteStatus] = mapped_column(Enum(VoteStatus), default=VoteStatus.voting, nullable=False)
 
     meeting = relationship("Meeting", back_populates="votes")
     options = relationship("VoteOption", back_populates="vote", cascade="all, delete-orphan")

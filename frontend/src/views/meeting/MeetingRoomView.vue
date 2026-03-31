@@ -1,10 +1,13 @@
 <template>
-  <div class="room-page app-page">
+  <div class="room-page app-page with-control-bar">
     <div class="room-head">
       <div>
         <div class="room-eyebrow">Meeting console</div>
         <h1>会议室 #{{ meetingId }}</h1>
         <p>统一管理本地音视频、桌面共享、远端参会流与在线表决。</p>
+      </div>
+      <div class="room-code-display">
+        <el-tag type="info" size="large">房间号: {{ roomCode }}</el-tag>
       </div>
     </div>
 
@@ -18,8 +21,8 @@
         <div class="summary-value">{{ screenStream ? '共享中' : '未共享' }}</div>
       </div>
       <div class="summary-item">
-        <div class="summary-label">远端成员</div>
-        <div class="summary-value">{{ remoteStreams.length }}</div>
+        <div class="summary-label">在线成员</div>
+        <div class="summary-value">{{ onlineUsers.length }}</div>
       </div>
     </div>
 
@@ -37,9 +40,14 @@
           <MediaTile
             v-for="stream in remoteStreams"
             :key="stream.id"
-            :title="`远端成员 ${stream.id.slice(-4)}`"
+            :title="getUserDisplayName(stream.id)"
             subtitle="实时参会流"
           >
+            <template #header-extra>
+              <el-tag v-if="isHandRaised(stream.id)" type="warning" size="small" class="raised-hand-tag">
+                举手
+              </el-tag>
+            </template>
             <video
               autoplay
               playsinline
@@ -48,22 +56,46 @@
           </MediaTile>
         </div>
 
-        <div class="floating-toolbar">
+        <!-- Media Controls (keep these separate from RoomControlBar) -->
+        <div class="media-toolbar">
           <el-button type="primary" @click="toggleCamera">
             {{ localStream ? '关闭摄像头/麦克风' : '打开摄像头/麦克风' }}
           </el-button>
           <el-button @click="toggleScreenShare">
             {{ screenStream ? '停止桌面共享' : '桌面共享' }}
           </el-button>
-          <el-button v-if="canStartVote" @click="showVoteDialog = true">发起表决</el-button>
+          <el-button v-if="canStartVote" type="success" @click="showVoteDialog = true">发起表决</el-button>
         </div>
       </div>
 
       <div class="side-section">
-        <VotePanel :active-vote="activeVote" :results="voteResults" :submitted="submitted" @submit="handleVoteSubmit" />
+        <!-- Panel Area -->
+        <el-tabs v-model="activeSidePanel" class="side-tabs" v-if="activeSidePanel !== 'vote'">
+          <el-tab-pane label="聊天" name="chat">
+            <el-empty description="聊天功能开发中..." />
+          </el-tab-pane>
+          <el-tab-pane label="文档" name="doc">
+            <el-empty description="文档功能开发中..." />
+          </el-tab-pane>
+          <el-tab-pane label="会议纪要" name="minutes">
+            <el-empty description="会议纪要功能开发中..." />
+          </el-tab-pane>
+        </el-tabs>
+
+        <!-- Vote Panel -->
+        <VotePanel
+          v-if="activeSidePanel === 'vote' || !activeSidePanel"
+          :active-vote="activeVote"
+          :results="voteResults"
+          :submitted="submitted"
+          :can-end-vote="canEndVote"
+          @submit="handleVoteSubmit"
+          @end="handleEndVote"
+        />
       </div>
     </div>
 
+    <!-- Vote Dialog -->
     <el-dialog v-model="showVoteDialog" title="发起表决" width="560px">
       <el-form label-width="90px" class="dialog-form">
         <el-form-item label="主题">
@@ -80,6 +112,21 @@
         <el-button type="primary" @click="startVote">发起</el-button>
       </template>
     </el-dialog>
+
+    <!-- Room Control Bar (fixed at bottom) -->
+    <RoomControlBar
+      ref="roomControlBarRef"
+      room-type="meeting"
+      :room-id="meetingId"
+      :room-code="roomCode"
+      :ws-client="wsClient"
+      :peer-connections="peerConnections"
+      :local-stream="localStream"
+      :self-id="selfId"
+      :on-cleanup="handleCleanup"
+      @panel-change="handlePanelChange"
+      @raise-hand-change="handleRaiseHandChange"
+    />
   </div>
 </template>
 
@@ -88,9 +135,10 @@ import { computed, onBeforeUnmount, onMounted, reactive, ref, watch } from 'vue'
 import { ElMessage } from 'element-plus'
 import { useRoute } from 'vue-router'
 
-import { createVote, fetchVotes, submitVote, type VoteItem } from '../../api/votes'
+import { createVote, endVote, fetchVotes, submitVote, type VoteItem } from '../../api/votes'
 import MediaTile from '../../components/media/MediaTile.vue'
 import VotePanel from '../../components/meeting/VotePanel.vue'
+import RoomControlBar from '../../components/room/RoomControlBar.vue'
 import { useAuthStore } from '../../stores/auth'
 import { WsClient } from '../../utils/ws'
 
@@ -99,9 +147,18 @@ interface RemoteStreamItem {
   mediaStream: MediaStream
 }
 
+interface OnlineUser {
+  id: string
+  user_id: number
+  display_name: string
+  role: string
+  hand_raised: boolean
+}
+
 const route = useRoute()
 const authStore = useAuthStore()
 const meetingId = Number(route.params.id)
+const roomCode = route.query.code as string || 'N/A'
 const wsClient = new WsClient()
 const peerConnections = new Map<string, RTCPeerConnection>()
 const remoteStreams = ref<RemoteStreamItem[]>([])
@@ -117,10 +174,25 @@ const voteForm = reactive({
   topic: '',
   options: [{ content: '赞成' }, { content: '反对' }, { content: '弃权' }]
 })
+const onlineUsers = ref<OnlineUser[]>([])
+const roomControlBarRef = ref<InstanceType<typeof RoomControlBar> | null>(null)
+const activeSidePanel = ref<'chat' | 'doc' | 'minutes' | 'vote' | null>(null)
 
 const canStartVote = computed(() => ['admin', 'host'].includes(authStore.role))
+const canEndVote = computed(() => canStartVote.value && activeVote.value?.status === 'voting')
 const activeVote = computed(() => votes.value[0] || null)
 const selfId = `${authStore.user?.id || 'guest'}-${Math.random().toString(36).slice(2, 8)}`
+const selfName = authStore.user?.username || '匿名用户'
+
+const getUserDisplayName = (connId: string) => {
+  const user = onlineUsers.value.find(u => u.id === connId)
+  return user?.display_name || `远端成员 ${connId.slice(-4)}`
+}
+
+const isHandRaised = (connId: string) => {
+  const user = onlineUsers.value.find(u => u.id === connId)
+  return user?.hand_raised || false
+}
 
 const setVideoStream = (el: HTMLVideoElement | null, stream: MediaStream | null) => {
   if (el) el.srcObject = stream
@@ -280,6 +352,56 @@ const handleSignalMessage = async (raw: MessageEvent<string>) => {
   const payload = JSON.parse(raw.data)
   if (payload.from === selfId) return
 
+  // Handle user management messages
+  if (payload.type === 'user-list') {
+    onlineUsers.value = payload.users || []
+    return
+  }
+
+  if (payload.type === 'user-joined') {
+    const exists = onlineUsers.value.find(u => u.id === payload.from)
+    if (!exists) {
+      onlineUsers.value.push({
+        id: payload.from,
+        user_id: payload.user_id,
+        display_name: payload.display_name,
+        role: payload.role,
+        hand_raised: false
+      })
+    }
+    return
+  }
+
+  if (payload.type === 'user-left') {
+    onlineUsers.value = onlineUsers.value.filter(u => u.id !== payload.from)
+    // Remove remote stream
+    remoteStreams.value = remoteStreams.value.filter(s => s.id !== payload.from)
+    // Close peer connection
+    const pc = peerConnections.get(payload.from)
+    if (pc) {
+      pc.close()
+      peerConnections.delete(payload.from)
+    }
+    return
+  }
+
+  if (payload.type === 'raise-hand') {
+    const user = onlineUsers.value.find(u => u.id === payload.from)
+    if (user) {
+      user.hand_raised = true
+    }
+    return
+  }
+
+  if (payload.type === 'lower-hand') {
+    const user = onlineUsers.value.find(u => u.id === payload.from)
+    if (user) {
+      user.hand_raised = false
+    }
+    return
+  }
+
+  // WebRTC signaling
   if (payload.type === 'join') {
     const pc = createPeerConnection(payload.from)
     const offer = await pc.createOffer()
@@ -293,6 +415,14 @@ const handleSignalMessage = async (raw: MessageEvent<string>) => {
     }
     if (payload.type === 'vote-result' && activeVote.value?.id === payload.voteId) {
       voteResults.value = payload.options
+    }
+    if (payload.type === 'vote-ended' && activeVote.value?.id === payload.voteId) {
+      const currentVote = activeVote.value
+      if (currentVote) {
+        currentVote.status = 'ended'
+        currentVote.results = payload.results
+      }
+      voteResults.value = payload.results
     }
     return
   }
@@ -319,7 +449,14 @@ const handleSignalMessage = async (raw: MessageEvent<string>) => {
 const connectRoom = async () => {
   const wsProtocol = window.location.protocol === 'https:' ? 'wss:' : 'ws:'
   await wsClient.connect(`${wsProtocol}//${window.location.host}/ws/meetings/${meetingId}`, handleSignalMessage)
-  wsClient.send({ type: 'join', from: selfId })
+  // Send join with user metadata
+  wsClient.send({
+    type: 'join',
+    from: selfId,
+    user_id: authStore.user?.id || 0,
+    display_name: selfName,
+    role: authStore.role || 'user'
+  })
 }
 
 const loadVotes = async () => {
@@ -358,6 +495,42 @@ const handleVoteSubmit = async (optionId: number) => {
   ElMessage.success('投票成功')
 }
 
+const handleEndVote = async () => {
+  if (!activeVote.value) return
+  const voteId = activeVote.value.id
+  const result = await endVote(voteId)
+  if (activeVote.value?.id === voteId) {
+    const currentVote = activeVote.value
+    if (currentVote) {
+      currentVote.status = 'ended'
+      currentVote.results = result.results
+    }
+    voteResults.value = result.results
+  }
+  ElMessage.success('表决已结束')
+}
+
+const handlePanelChange = (panel: 'chat' | 'doc' | 'minutes' | null) => {
+  if (panel) {
+    activeSidePanel.value = panel
+  } else {
+    activeSidePanel.value = null
+  }
+}
+
+const handleRaiseHandChange = (raised: boolean) => {
+  // Update local user state
+  const localUser = onlineUsers.value.find(u => u.id === selfId)
+  if (localUser) {
+    localUser.hand_raised = raised
+  }
+}
+
+const handleCleanup = () => {
+  stopCamera()
+  stopScreenShare()
+}
+
 onMounted(async () => {
   await loadVotes()
   connectRoom()
@@ -372,12 +545,21 @@ onBeforeUnmount(() => {
 </script>
 
 <style scoped>
+.room-page.with-control-bar {
+  padding-bottom: 80px;
+}
+
 .room-head {
   display: flex;
   justify-content: space-between;
   align-items: flex-start;
   gap: 20px;
 }
+
+.room-code-display {
+  flex-shrink: 0;
+}
+
 .room-eyebrow {
   color: var(--color-primary);
   font-size: 12px;
@@ -385,6 +567,7 @@ onBeforeUnmount(() => {
   letter-spacing: 0.08em;
   text-transform: uppercase;
 }
+
 .room-head h1 {
   margin: 10px 0 0;
   font-size: clamp(30px, 4vw, 36px);
@@ -392,17 +575,20 @@ onBeforeUnmount(() => {
   letter-spacing: -0.03em;
   color: var(--color-text-primary);
 }
+
 .room-head p {
   margin: 12px 0 0;
   color: var(--color-text-muted);
   line-height: 1.7;
   max-width: 720px;
 }
+
 .room-summary {
   display: grid;
   grid-template-columns: repeat(3, minmax(0, 1fr));
   gap: 18px;
 }
+
 .summary-item {
   padding: 20px 22px;
   border-radius: 24px;
@@ -411,35 +597,42 @@ onBeforeUnmount(() => {
   box-shadow: 0 16px 36px rgba(26, 31, 59, 0.06);
   backdrop-filter: blur(16px);
 }
+
 .summary-label {
   color: var(--color-text-muted);
   font-size: 13px;
 }
+
 .summary-value {
   margin-top: 10px;
   font-size: 24px;
   font-weight: 700;
   color: var(--color-text-primary);
 }
+
 .room-layout {
   display: grid;
   grid-template-columns: minmax(0, 1fr) 360px;
   gap: 24px;
   align-items: start;
 }
+
 .media-section,
 .side-section {
   min-width: 0;
 }
+
 .video-grid {
   display: grid;
   grid-template-columns: repeat(2, minmax(0, 1fr));
   gap: 18px;
 }
+
 .media-tile-main {
   min-height: 420px;
 }
-.floating-toolbar {
+
+.media-toolbar {
   margin-top: 18px;
   display: flex;
   flex-wrap: wrap;
@@ -451,14 +644,34 @@ onBeforeUnmount(() => {
   box-shadow: 0 20px 40px rgba(26, 31, 59, 0.08);
   backdrop-filter: blur(18px);
 }
+
+.raised-hand-tag {
+  animation: pulse 1.5s ease-in-out infinite;
+}
+
+@keyframes pulse {
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0.6; }
+}
+
+.side-tabs {
+  height: 100%;
+  background: rgba(255, 255, 255, 0.92);
+  border-radius: 20px;
+  border: 1px solid rgba(46, 58, 89, 0.1);
+  box-shadow: 0 8px 32px rgba(26, 31, 59, 0.06);
+}
+
 .dialog-form {
   padding-top: 8px;
 }
+
 @media (max-width: 1200px) {
   .room-layout {
     grid-template-columns: 1fr;
   }
 }
+
 @media (max-width: 900px) {
   .room-summary,
   .video-grid {
@@ -469,6 +682,7 @@ onBeforeUnmount(() => {
     min-height: 340px;
   }
 }
+
 @media (max-width: 720px) {
   .room-head {
     flex-direction: column;

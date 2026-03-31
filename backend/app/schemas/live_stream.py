@@ -6,6 +6,7 @@ from pydantic import BaseModel, ConfigDict
 class LiveStreamCreate(BaseModel):
     title: str
     record_url: str | None = None
+    parent_id: int | None = None
 
 
 class LiveStreamResponse(BaseModel):
@@ -17,3 +18,4 @@ class LiveStreamResponse(BaseModel):
     start_time: datetime
     room_code: str
     record_url: str | None = None
+    parent_id: int | None = None

@@ -55,7 +55,12 @@
       "Bash(su - www -s /bin/bash -c \"cat /www/videos-meeting/frontend/dist/index.html\")",
       "Bash(ls -la /www/videos-meeting/backend/*.env*)",
       "Bash(ls -la /www/videos-meeting/backend/.env*)",
-      "Bash(bash -n /www/videos-meeting/start.sh)"
+      "Bash(bash -n /www/videos-meeting/start.sh)",
+      "Bash(source .venv/bin/activate)",
+      "Bash(source venv/bin/activate)",
+      "Bash(grep -r Hand node_modules/@element-plus/icons-vue/dist/types/*.d.ts)",
+      "Bash(grep -r export node_modules/@element-plus/icons-vue/dist/types/*.d.ts)",
+      "Bash(systemctl list-units --type=service --state=running)"
     ]
   }
 }

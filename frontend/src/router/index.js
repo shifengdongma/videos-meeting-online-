@@ -4,10 +4,12 @@ const MainLayout = () => import('../views/MainLayout.vue');
 const AdminLayout = () => import('../views/admin/AdminLayout.vue');
 const LoginView = () => import('../views/auth/LoginView.vue');
 const RegisterView = () => import('../views/auth/RegisterView.vue');
+const DashboardView = () => import('../views/DashboardView.vue');
 const LiveListView = () => import('../views/live/LiveListView.vue');
 const LiveRoomView = () => import('../views/live/LiveRoomView.vue');
 const MeetingListView = () => import('../views/meeting/MeetingListView.vue');
 const MeetingRoomView = () => import('../views/meeting/MeetingRoomView.vue');
+const PlaybackCenterView = () => import('../views/PlaybackCenterView.vue');
 const RoomTemplateView = () => import('../views/admin/RoomTemplateView.vue');
 const UserManageView = () => import('../views/admin/UserManageView.vue');
 const routes = [
@@ -17,11 +19,13 @@ const routes = [
         path: '/',
         component: MainLayout,
         children: [
-            { path: '', redirect: '/meetings' },
+            { path: '', redirect: '/dashboard' },
+            { path: 'dashboard', component: DashboardView },
             { path: 'meetings', component: MeetingListView },
             { path: 'meetings/:id', component: MeetingRoomView },
             { path: 'live', component: LiveListView },
-            { path: 'live/:id', component: LiveRoomView }
+            { path: 'live/:id', component: LiveRoomView },
+            { path: 'playback', component: PlaybackCenterView }
         ]
     },
     {

@@ -1,4 +1,4 @@
-import { CalendarDaysIcon, SignalIcon, UserGroupIcon } from '@heroicons/vue/24/outline';
+import { CalendarDaysIcon, SignalIcon, UserGroupIcon, PlayCircleIcon, CalendarIcon } from '@heroicons/vue/24/outline';
 import { computed } from 'vue';
 import { useRoute, useRouter } from 'vue-router';
 import { useAuthStore } from '../stores/auth';
@@ -7,8 +7,10 @@ const route = useRoute();
 const router = useRouter();
 const navItems = computed(() => {
     const items = [
+        { path: '/dashboard', label: '仪表盘', icon: CalendarIcon },
         { path: '/meetings', label: '会议中心', icon: CalendarDaysIcon },
-        { path: '/live', label: '直播中心', icon: SignalIcon }
+        { path: '/live', label: '直播中心', icon: SignalIcon },
+        { path: '/playback', label: '回放中心', icon: PlayCircleIcon }
     ];
     if (authStore.role === 'admin') {
         items.push({ path: '/admin/users', label: '后台管理', icon: UserGroupIcon });
@@ -16,12 +18,16 @@ const navItems = computed(() => {
     return items;
 });
 const pageTitle = computed(() => {
+    if (route.path.startsWith('/dashboard'))
+        return '仪表盘';
     if (route.path.startsWith('/meetings/'))
         return '会议控制台';
     if (route.path.startsWith('/live/'))
         return '直播控制台';
     if (route.path.startsWith('/live'))
         return '直播中心';
+    if (route.path.startsWith('/playback'))
+        return '回放中心';
     if (route.path.startsWith('/admin'))
         return '后台管理';
     return '会议中心';
