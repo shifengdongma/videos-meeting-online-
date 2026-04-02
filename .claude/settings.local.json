@@ -60,7 +60,17 @@
       "Bash(source venv/bin/activate)",
       "Bash(grep -r Hand node_modules/@element-plus/icons-vue/dist/types/*.d.ts)",
       "Bash(grep -r export node_modules/@element-plus/icons-vue/dist/types/*.d.ts)",
-      "Bash(systemctl list-units --type=service --state=running)"
+      "Bash(systemctl list-units --type=service --state=running)",
+      "Bash(systemctl status nginx)",
+      "Bash(systemctl reload nginx)",
+      "Bash(curl -s http://127.0.0.1:8001/api/meetings)",
+      "Bash(lsof -i :8001)",
+      "Bash(pip install pandas==1.1.5 openpyxl==3.0.10)",
+      "Bash(pip install pandas==2.1.4 openpyxl==3.1.2)",
+      "Bash(tar -xzf ngrok-v3-stable-linux-amd64.tgz)",
+      "Bash(/usr/local/bin/ngrok config add-authtoken 3Bewq8dSYYeo8JPjXqjQVEnKTqE_3mmzLSmR1tnThGJzrmxKb)",
+      "Bash(ln -sf /usr/local/bin/ngrok /usr/bin/ngrok)",
+      "Bash(ngrok version)"
     ]
   }
 }

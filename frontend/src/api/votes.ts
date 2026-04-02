@@ -16,6 +16,11 @@ export interface VoteItem {
   id: number
   meeting_id: number
   topic: string
+  description: string | null
+  start_time: string | null
+  end_time: string | null
+  max_votes: number
+  remarks: string | null
   created_at: string
   status: 'voting' | 'ended'
   options: VoteOption[]
@@ -23,12 +28,23 @@ export interface VoteItem {
   results: VoteResultOption[]
 }
 
+export interface VoteCreatePayload {
+  meeting_id: number
+  topic: string
+  description?: string | null
+  start_time?: string | null
+  end_time?: string | null
+  max_votes?: number
+  remarks?: string | null
+  options: Array<{ content: string }>
+}
+
 export const fetchVotes = async (meetingId: number) => {
   const { data } = await api.get<VoteItem[]>(`/votes/meeting/${meetingId}`)
   return data
 }
 
-export const createVote = async (payload: { meeting_id: number; topic: string; options: Array<{ content: string }> }) => {
+export const createVote = async (payload: VoteCreatePayload) => {
   const { data } = await api.post<VoteItem>('/votes', payload)
   return data
 }

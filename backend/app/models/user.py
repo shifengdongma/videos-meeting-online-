@@ -20,3 +20,4 @@ class User(Base):
     meeting_templates = relationship("MeetingTemplate", back_populates="creator")
     live_streams = relationship("LiveStream", back_populates="host")
     vote_records = relationship("VoteRecord", back_populates="user")
+    meeting_participants = relationship("MeetingParticipant", back_populates="user")

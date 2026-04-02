@@ -14,6 +14,7 @@ const MeetingRoomView = () => import('../views/meeting/MeetingRoomView.vue')
 const PlaybackCenterView = () => import('../views/PlaybackCenterView.vue')
 const RoomTemplateView = () => import('../views/admin/RoomTemplateView.vue')
 const UserManageView = () => import('../views/admin/UserManageView.vue')
+const MeetingManageView = () => import('../views/admin/MeetingManageView.vue')
 
 const routes: RouteRecordRaw[] = [
   { path: '/login', component: LoginView, meta: { public: true } },
@@ -37,7 +38,8 @@ const routes: RouteRecordRaw[] = [
     meta: { roles: ['admin'] },
     children: [
       { path: 'users', component: UserManageView },
-      { path: 'rooms', component: RoomTemplateView }
+      { path: 'rooms', component: RoomTemplateView },
+      { path: 'meetings', component: MeetingManageView, meta: { roles: ['admin', 'host'] } }
     ]
   }
 ]

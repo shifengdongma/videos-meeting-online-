@@ -77,19 +77,30 @@ check_nginx() {
 
 # 配置 Nginx (生产模式)
 setup_nginx_config() {
-    local nginx_conf_dir="/etc/nginx"
-    local config_file="$nginx_conf_dir/conf.d/videos-meeting.conf"
+    # 宝塔面板 Nginx 配置目录 (优先)
+    local bt_nginx_conf_dir="/www/server/panel/vhost/nginx"
+    # 标准 Nginx 配置目录 (备选)
+    local std_nginx_conf_dir="/etc/nginx/conf.d"
+    local config_file=""
 
-    # 检查 Nginx 配置目录
-    if [ ! -d "$nginx_conf_dir/conf.d" ]; then
-        mkdir -p "$nginx_conf_dir/conf.d"
+    # 检测 Nginx 配置目录 (宝塔面板优先)
+    if [ -d "$bt_nginx_conf_dir" ]; then
+        config_file="$bt_nginx_conf_dir/videos-meeting.conf"
+        log_info "检测到宝塔面板 Nginx，配置目录: $bt_nginx_conf_dir"
+    elif [ -d "$std_nginx_conf_dir" ]; then
+        config_file="$std_nginx_conf_dir/videos-meeting.conf"
+        log_info "使用标准 Nginx 配置目录: $std_nginx_conf_dir"
+    else
+        # 尝试创建标准目录
+        mkdir -p "$std_nginx_conf_dir" 2>/dev/null
+        config_file="$std_nginx_conf_dir/videos-meeting.conf"
     fi
 
     # 生成 Nginx 配置 (包含 WebSocket 支持)
     cat > "$config_file" << 'NGINX_CONF'
 server {
-    listen 80;
-    server_name localhost;
+    listen 80 default_server;
+    server_name _;
 
     # 前端静态文件
     location / {
@@ -100,7 +111,7 @@ server {
 
     # 后端 API 代理
     location /api/ {
-        proxy_pass http://127.0.0.1:8001/;
+        proxy_pass http://127.0.0.1:8001/api/;
         proxy_set_header Host $host;
         proxy_set_header X-Real-IP $remote_addr;
         proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;

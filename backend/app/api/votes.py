@@ -43,6 +43,11 @@ def build_vote_response(vote: Vote, user_id: int | None = None) -> dict:
         "id": vote.id,
         "meeting_id": vote.meeting_id,
         "topic": vote.topic,
+        "description": vote.description,
+        "start_time": vote.start_time.isoformat() if vote.start_time else None,
+        "end_time": vote.end_time.isoformat() if vote.end_time else None,
+        "max_votes": vote.max_votes,
+        "remarks": vote.remarks,
         "created_at": vote.created_at.isoformat() if vote.created_at else None,
         "status": vote.status.value if vote.status else "voting",
         "options": [{"id": option.id, "content": option.content} for option in vote.options],
@@ -77,7 +82,15 @@ async def create_vote(
     if not meeting:
         raise HTTPException(status_code=status.HTTP_404_NOT_FOUND, detail="会议不存在")
 
-    vote = Vote(meeting_id=payload.meeting_id, topic=payload.topic)
+    vote = Vote(
+        meeting_id=payload.meeting_id,
+        topic=payload.topic,
+        description=payload.description,
+        start_time=payload.start_time,
+        end_time=payload.end_time,
+        max_votes=payload.max_votes,
+        remarks=payload.remarks,
+    )
     db.add(vote)
     db.flush()
 

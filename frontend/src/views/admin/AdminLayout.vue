@@ -18,6 +18,9 @@
           <el-menu-item index="/admin/rooms">
             <span>会议室模板</span>
           </el-menu-item>
+          <el-menu-item index="/admin/meetings">
+            <span>会议管理</span>
+          </el-menu-item>
           <el-menu-item index="/meetings">
             <span>返回前台</span>
           </el-menu-item>
@@ -75,6 +78,7 @@ const authStore = useAuthStore()
 
 const pageTitle = computed(() => {
   if (route.path.startsWith('/admin/rooms')) return '会议室模板'
+  if (route.path.startsWith('/admin/meetings')) return '会议管理'
   return '用户与权限管理'
 })
 

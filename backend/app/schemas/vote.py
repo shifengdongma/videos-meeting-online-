@@ -12,6 +12,11 @@ class VoteOptionCreate(BaseModel):
 class VoteCreate(BaseModel):
     meeting_id: int
     topic: str = Field(min_length=1, max_length=255)
+    description: str | None = None
+    start_time: datetime | None = None
+    end_time: datetime | None = None
+    max_votes: int = Field(default=1, ge=1)
+    remarks: str | None = Field(default=None, max_length=500)
     options: list[VoteOptionCreate] = Field(min_length=2)
 
 
@@ -39,6 +44,11 @@ class VoteResponse(BaseModel):
     id: int
     meeting_id: int
     topic: str
+    description: str | None = None
+    start_time: datetime | None = None
+    end_time: datetime | None = None
+    max_votes: int = 1
+    remarks: str | None = None
     created_at: datetime
     status: VoteStatus
     options: list[VoteOptionResponse]

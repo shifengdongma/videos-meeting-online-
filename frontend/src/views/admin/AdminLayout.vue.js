@@ -7,6 +7,8 @@ const authStore = useAuthStore();
 const pageTitle = computed(() => {
     if (route.path.startsWith('/admin/rooms'))
         return '会议室模板';
+    if (route.path.startsWith('/admin/meetings'))
+        return '会议管理';
     return '用户与权限管理';
 });
 const logout = () => {
@@ -92,14 +94,26 @@ const __VLS_12 = {}.ElMenuItem;
 /** @type {[typeof __VLS_components.ElMenuItem, typeof __VLS_components.elMenuItem, typeof __VLS_components.ElMenuItem, typeof __VLS_components.elMenuItem, ]} */ ;
 // @ts-ignore
 const __VLS_13 = __VLS_asFunctionalComponent(__VLS_12, new __VLS_12({
-    index: "/meetings",
+    index: "/admin/meetings",
 }));
 const __VLS_14 = __VLS_13({
-    index: "/meetings",
+    index: "/admin/meetings",
 }, ...__VLS_functionalComponentArgsRest(__VLS_13));
 __VLS_15.slots.default;
 __VLS_asFunctionalElement(__VLS_intrinsicElements.span, __VLS_intrinsicElements.span)({});
 var __VLS_15;
+const __VLS_16 = {}.ElMenuItem;
+/** @type {[typeof __VLS_components.ElMenuItem, typeof __VLS_components.elMenuItem, typeof __VLS_components.ElMenuItem, typeof __VLS_components.elMenuItem, ]} */ ;
+// @ts-ignore
+const __VLS_17 = __VLS_asFunctionalComponent(__VLS_16, new __VLS_16({
+    index: "/meetings",
+}));
+const __VLS_18 = __VLS_17({
+    index: "/meetings",
+}, ...__VLS_functionalComponentArgsRest(__VLS_17));
+__VLS_19.slots.default;
+__VLS_asFunctionalElement(__VLS_intrinsicElements.span, __VLS_intrinsicElements.span)({});
+var __VLS_19;
 var __VLS_3;
 __VLS_asFunctionalElement(__VLS_intrinsicElements.div, __VLS_intrinsicElements.div)({
     ...{ class: "sidebar-footer" },
@@ -153,11 +167,11 @@ __VLS_asFunctionalElement(__VLS_intrinsicElements.main, __VLS_intrinsicElements.
 __VLS_asFunctionalElement(__VLS_intrinsicElements.div, __VLS_intrinsicElements.div)({
     ...{ class: "content-inner" },
 });
-const __VLS_16 = {}.RouterView;
+const __VLS_20 = {}.RouterView;
 /** @type {[typeof __VLS_components.RouterView, typeof __VLS_components.routerView, ]} */ ;
 // @ts-ignore
-const __VLS_17 = __VLS_asFunctionalComponent(__VLS_16, new __VLS_16({}));
-const __VLS_18 = __VLS_17({}, ...__VLS_functionalComponentArgsRest(__VLS_17));
+const __VLS_21 = __VLS_asFunctionalComponent(__VLS_20, new __VLS_20({}));
+const __VLS_22 = __VLS_21({}, ...__VLS_functionalComponentArgsRest(__VLS_21));
 /** @type {__VLS_StyleScopedClasses['admin-shell']} */ ;
 /** @type {__VLS_StyleScopedClasses['sidebar']} */ ;
 /** @type {__VLS_StyleScopedClasses['sidebar-inner']} */ ;
